@@ -9,5 +9,3 @@ require("config.lazy")
 
 -- Colorscheme
 require("config.colorscheme")
-
-
