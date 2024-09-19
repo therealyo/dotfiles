@@ -41,3 +41,5 @@ vim.keymap.set("n", "<leader>ee", "oif err != nil {<CR>}<Esc>Oreturn err<Esc>")
 vim.keymap.set("n", "<leader><leader>", function()
 	vim.cmd("so")
 end)
+
+vim.keymap.set({ "i", "x", "n", "s" }, "<leader>w", "<cmd>w<cr><esc>", { desc = "Save file" })
