@@ -11,8 +11,26 @@ if wezterm.config_builder then
 end
 
 -- Color scheme
-config.color_scheme = "Catppuccin Macchiato"
+-- config.color_scheme = "Catppuccin Macchiato"
 
+local github_dark = require("themes.github_dark")
+
+config.color_schemes = { ["github_dark"] = github_dark.colors }
+
+-- config.color_schemes = {
+-- 	["GitHub Theme"] = github_theme.color_scheme,
+-- }
+config.color_scheme = "github_dark"
+
+config.window_padding = {
+	left = 20,
+	right = 5,
+	top = 10,
+	bottom = 0,
+}
+
+-- Tab bar settings
+config.hide_tab_bar_if_only_one_tab = true
 -- Font settings (matching VSCode config)
 config.font = wezterm.font_with_fallback({
 	"JetBrains Mono",

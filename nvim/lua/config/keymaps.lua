@@ -13,6 +13,8 @@ vim.keymap.set("n", "<C-d>", "<C-d>zz")
 vim.keymap.set("n", "<C-u>", "<C-u>zz")
 vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
+vim.keymap.set("n", "N", "Nzzzv")
+
 vim.keymap.set("n", "<leader>zig", "<cmd>LspRestart<cr>")
 
 -- greatest remap ever(don't clear yank buffer on paste)
@@ -34,7 +36,7 @@ vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
 
 -- Find and replace
 vim.keymap.set("n", "<leader>F", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
-vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
+-- vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
 
 vim.keymap.set("n", "<leader>ee", "oif err != nil {<CR>}<Esc>Oreturn err<Esc>")
 
@@ -42,4 +44,17 @@ vim.keymap.set("n", "<leader><leader>", function()
 	vim.cmd("so")
 end)
 
-vim.keymap.set({ "i", "x", "n", "s" }, "<leader>w", "<cmd>w<cr><esc>", { desc = "Save file" })
+vim.keymap.set("n", "<leader>w", "<cmd>w<cr><esc>", { desc = "Save file" })
+
+-- BufferLine
+vim.keymap.set("n", "<S-b>", "<cmd> enew <CR>") --"烙 new buffer"
+vim.keymap.set("n", "<A-.>", "<cmd> BufferLineCycleNext <CR>") --"  cycle next buffer"
+vim.keymap.set("n", "<A-,>", "<cmd> BufferLineCyclePrev <CR>") --"  cycle prev buffer"
+vim.keymap.set("n", "<A-s-.>", "<cmd> BufferLineMoveNext <CR>") --"  cycle next buffer"
+vim.keymap.set("n", "<A-s-,>", "<cmd> BufferLineMovePrev <CR>") --"  cycle prev buffer"
+vim.keymap.set("n", "<A-f>", "<cmd> BufferLinePick <CR>")
+vim.keymap.set("n", "<leader>x", "<cmd> bp|sp|bn|bd! <CR>") --"	close buffer"
+for i = 1, 9 do
+	-- vim.keymap.set("n", "<A-" .. i .. ">", function() require("bufferline").go_to_buffer(i) end)
+	vim.keymap.set("n", "<A-" .. i .. ">", "<cmd>" .. i .. "tabn<CR>")
+end
