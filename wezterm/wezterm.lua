@@ -12,15 +12,21 @@ end
 
 -- Color scheme
 -- config.color_scheme = "Catppuccin Macchiato"
-
-local github_dark = require("themes.github_dark")
-
-config.color_schemes = { ["github_dark"] = github_dark.colors }
-
--- config.color_schemes = {
--- 	["GitHub Theme"] = github_theme.color_scheme,
--- }
-config.color_scheme = "github_dark"
+config.color_scheme = "GitHub Dark" -- Set the theme to GitHub Dark
+-- config.window_background_opacity = 0.9 -- Slight transparency for the terminal background
+config.colors = {
+	tab_bar = {
+		background = "#282c34",
+		active_tab = {
+			bg_color = "#61afef",
+			fg_color = "#282c34",
+		},
+		inactive_tab = {
+			bg_color = "#3e4451",
+			fg_color = "#abb2bf",
+		},
+	},
+}
 
 config.window_padding = {
 	left = 20,
@@ -38,7 +44,7 @@ config.font = wezterm.font_with_fallback({
 	"Courier New",
 	"monospace",
 })
-config.font_size = 16
+config.font_size = 15
 config.harfbuzz_features = { "calt=1", "clig=1", "liga=1" } -- Enable font ligatures
 
 -- Leader key configuration

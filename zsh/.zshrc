@@ -118,3 +118,8 @@ source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 export PATH=$(go env GOPATH)/bin:$PATH
 
 . /opt/homebrew/opt/asdf/libexec/asdf.sh
+
+export GOPATH=$HOME/go
+export GOROOT=/usr/local/go
+
+alias ls='eza'
