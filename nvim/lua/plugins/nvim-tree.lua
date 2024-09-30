@@ -48,7 +48,7 @@ return {
 				},
 			},
 			filters = {
-				dotfiles = true, -- Show dotfiles
+				dotfiles = false, -- Show dotfiles
 			},
 		})
 	end,

@@ -58,3 +58,6 @@ for i = 1, 9 do
 	-- vim.keymap.set("n", "<A-" .. i .. ">", function() require("bufferline").go_to_buffer(i) end)
 	vim.keymap.set("n", "<A-" .. i .. ">", "<cmd>" .. i .. "tabn<CR>")
 end
+
+-- Map 'jj' to Escape in insert mode
+vim.api.nvim_set_keymap("i", "jj", "<Esc>", { noremap = true, silent = true })

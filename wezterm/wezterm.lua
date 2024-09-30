@@ -14,19 +14,19 @@ end
 -- config.color_scheme = "Catppuccin Macchiato"
 config.color_scheme = "GitHub Dark" -- Set the theme to GitHub Dark
 -- config.window_background_opacity = 0.9 -- Slight transparency for the terminal background
-config.colors = {
-	tab_bar = {
-		background = "#282c34",
-		active_tab = {
-			bg_color = "#61afef",
-			fg_color = "#282c34",
-		},
-		inactive_tab = {
-			bg_color = "#3e4451",
-			fg_color = "#abb2bf",
-		},
-	},
-}
+-- config.colors = {
+-- 	tab_bar = {
+-- 		background = "#282c34",
+-- 		active_tab = {
+-- 			bg_color = "#61afef",
+-- 			fg_color = "#282c34",
+-- 		},
+-- 		inactive_tab = {
+-- 			bg_color = "#3e4451",
+-- 			fg_color = "#abb2bf",
+-- 		},
+-- 	},
+-- }
 
 config.window_padding = {
 	left = 20,
