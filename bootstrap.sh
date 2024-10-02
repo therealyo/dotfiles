@@ -38,5 +38,5 @@ fi
 
 # 5. Run the Ansible playbook to set up everything
 cd "$HOME/dotfiles/ansible" || exit
-ansible-playbook setup.yaml --ask-become-pass
+ansible-playbook setup.yaml --ask-vault-pass --ask-become-pass
 
