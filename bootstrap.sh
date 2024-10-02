@@ -7,6 +7,7 @@ if ! command -v brew &>/dev/null; then
   echo >> "$HOME/.zprofile"
   echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> "$HOME/.zprofile"
   eval "$(/opt/homebrew/bin/brew shellenv)"
+  source ~/.zshrc
 else
   echo "Homebrew already installed."
 fi
