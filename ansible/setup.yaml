@@ -1,7 +1,5 @@
 ---
 - hosts: localhost
-  vars_files:
-    - vault_password.yml
   tasks:
     # Install packages using Homebrew
     - name: Install packages with Homebrew
