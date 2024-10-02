@@ -18,7 +18,6 @@
         - discord
         - libpq
         - eza
-      become: yes
 
     # Install Oh My Zsh
     - name: Install Oh My Zsh
