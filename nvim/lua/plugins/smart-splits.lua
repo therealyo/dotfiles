@@ -48,9 +48,6 @@ return {
 		map("<leader><leader>k", require("smart-splits").swap_buf_up, "Swap buffer with window above")
 		map("<leader><leader>l", require("smart-splits").swap_buf_right, "Swap buffer with window on the right")
 
-		-- Starting persistent resize mode
-		map("<leader>sr", require("smart-splits").start_resize_mode, "Start persistent resize mode")
-
 		-- Creating horizontal and vertical splits
 		map("<leader>sh", ":split<CR>", "Create horizontal split")
 		map("<leader>sv", ":vsplit<CR>", "Create vertical split")

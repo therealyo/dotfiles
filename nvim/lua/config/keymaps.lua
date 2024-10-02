@@ -36,7 +36,7 @@ vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
 
 -- Find and replace
 vim.keymap.set("n", "<leader>F", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
--- vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
+vim.keymap.set("n", "<leader>X", "<cmd>!chmod +x %<CR>", { silent = true })
 
 vim.keymap.set("n", "<leader>ee", "oif err != nil {<CR>}<Esc>Oreturn err<Esc>")
 
@@ -58,6 +58,3 @@ for i = 1, 9 do
 	-- vim.keymap.set("n", "<A-" .. i .. ">", function() require("bufferline").go_to_buffer(i) end)
 	vim.keymap.set("n", "<A-" .. i .. ">", "<cmd>" .. i .. "tabn<CR>")
 end
-
--- Map 'jj' to Escape in insert mode
-vim.api.nvim_set_keymap("i", "jj", "<Esc>", { noremap = true, silent = true })

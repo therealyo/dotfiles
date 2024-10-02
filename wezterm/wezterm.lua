@@ -44,7 +44,7 @@ config.font = wezterm.font_with_fallback({
 	"Courier New",
 	"monospace",
 })
-config.font_size = 15
+config.font_size = 12
 config.harfbuzz_features = { "calt=1", "clig=1", "liga=1" } -- Enable font ligatures
 
 -- Leader key configuration

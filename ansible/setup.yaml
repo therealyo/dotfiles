@@ -1,0 +1,197 @@
+---
+- hosts: localhost
+  tasks:
+    # Install packages using Homebrew
+    - name: Install packages with Homebrew
+      homebrew:
+        name: "{{ item }}"
+      loop:
+        - git
+        - wezterm
+        - neovim
+        - fzf
+        - ripgrep
+        - stow
+        - starship
+        - docker
+        - telegram
+        - discord
+        - libpq
+        - eza
+      become: yes
+
+    # Install Oh My Zsh
+    - name: Install Oh My Zsh
+      ansible.builtin.command: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+      args:
+        creates: ~/.oh-my-zsh
+
+    # Install Zsh autocomplete
+    - name: Install Zsh autocomplete
+      ansible.builtin.shell: "git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions"
+      args:
+        creates: ~/.zsh/zsh-autosuggestions
+
+    # Install Zsh syntax highlighting
+    - name: Install Zsh syntax highlighting
+      ansible.builtin.shell: "git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.zsh/zsh-syntax-highlighting"
+      args:
+        creates: ~/.zsh/zsh-syntax-highlighting
+
+    # Install asdf version manager
+    - name: Install asdf
+      ansible.builtin.git:
+        repo: https://github.com/asdf-vm/asdf.git
+        dest: ~/.asdf
+        version: v0.12.0
+
+    # Add asdf to zshrc
+    - name: Add asdf to zshrc
+      lineinfile:
+        path: ~/.zshrc
+        line: '. $HOME/.asdf/asdf.sh'
+        create: yes
+
+    # Install asdf plugins for Erlang, Elixir, Ruby, Go
+    - name: Install asdf plugins
+      shell: |
+        . $HOME/.asdf/asdf.sh
+        asdf plugin add erlang
+        asdf plugin add elixir
+        asdf plugin add ruby
+        asdf plugin add golang
+      args:
+        executable: /bin/bash
+
+    # Install Erlang
+    - name: Install Erlang
+      shell: ". $HOME/.asdf/asdf.sh && asdf install erlang latest && asdf global erlang latest"
+      args:
+        executable: /bin/bash
+
+    # Install Elixir
+    - name: Install Elixir
+      shell: ". $HOME/.asdf/asdf.sh && asdf install elixir latest && asdf global elixir latest"
+      args:
+        executable: /bin/bash
+
+    # Install Ruby
+    - name: Install Ruby
+      shell: ". $HOME/.asdf/asdf.sh && asdf install ruby latest && asdf global ruby latest"
+      args:
+        executable: /bin/bash
+
+    # Install Go
+    - name: Install Go
+      shell: ". $HOME/.asdf/asdf.sh && asdf install golang latest && asdf global golang latest"
+      args:
+        executable: /bin/bash
+
+    # Install nvm (Node Version Manager)
+    - name: Install nvm
+      ansible.builtin.command: /bin/bash -c "$(curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash)"
+      args:
+        creates: ~/.nvm/nvm.sh
+
+    # Add nvm to zshrc
+    - name: Add nvm to zshrc
+      lineinfile:
+        path: ~/.zshrc
+        line: '. $HOME/.nvm/nvm.sh'
+        create: yes
+
+    # Install latest Node.js with nvm
+    - name: Install latest Node.js with nvm
+      shell: ". $HOME/.nvm/nvm.sh && nvm install node && nvm use node"
+      args:
+        executable: /bin/bash
+
+    # Install goimports
+    - name: Install goimports for Go
+      shell: ". $HOME/.asdf/asdf.sh && go install golang.org/x/tools/cmd/goimports@latest"
+      args:
+        executable: /bin/bash
+
+    # SSH key management
+    - name: Ensure SSH directory exists
+      file:
+        path: "~/.ssh"
+        state: directory
+        mode: 0700
+
+    # Copy encrypted private key
+    - name: Decrypt and copy SSH private key
+      ansible.builtin.copy:
+        src: ssh/id_rsa
+        dest: ~/.ssh/id_rsa
+        mode: 0600
+      vars_files:
+        - "vault_password.yml"
+
+    # Copy public key
+    - name: Copy SSH public key
+      ansible.builtin.copy:
+        src: ssh/id_rsa.pub
+        dest: ~/.ssh/id_rsa.pub
+        mode: 0644
+
+    # Ensure correct permissions for SSH private key
+    - name: Ensure correct permissions for SSH private key
+      file:
+        path: "~/.ssh/id_rsa"
+        mode: '0600'
+
+    # Ensure correct permissions for SSH public key
+    - name: Ensure correct permissions for SSH public key
+      file:
+        path: "~/.ssh/id_rsa.pub"
+        mode: '0644'
+
+    # Install JetBrains Mono font
+    - name: Download JetBrains Mono font
+      ansible.builtin.get_url:
+        url: https://github.com/JetBrains/JetBrainsMono/releases/download/v2.304/JetBrainsMono-2.304.zip
+        dest: /tmp/JetBrainsMono.zip
+
+    - name: Unzip JetBrains Mono font
+      ansible.builtin.unarchive:
+        src: /tmp/JetBrainsMono.zip
+        dest: /tmp/JetBrainsMono/
+        remote_src: yes
+
+    - name: Copy JetBrains Mono fonts to system font directory
+      ansible.builtin.copy:
+        src: /tmp/JetBrainsMono/fonts/ttf/
+        dest: /Library/Fonts/
+        mode: 0644
+        owner: root
+        group: wheel
+        remote_src: yes
+        force: yes
+
+    - name: Clean up downloaded JetBrains Mono files
+      ansible.builtin.file:
+        path: /tmp/JetBrainsMono.zip
+        state: absent
+
+    - name: Clean up unzipped JetBrains Mono directory
+      ansible.builtin.file:
+        path: /tmp/JetBrainsMono
+        state: absent
+
+    # Use stow to symlink configurations
+    - name: Stow Neovim config
+      ansible.builtin.command: stow nvim
+      args:
+        chdir: ~/dotfiles
+
+    - name: Stow WezTerm config
+      ansible.builtin.command: stow wezterm
+      args:
+        chdir: ~/dotfiles
+
+    - name: Stow Zsh config
+      ansible.builtin.command: stow zsh
+      args:
+        chdir: ~/dotfiles
+
