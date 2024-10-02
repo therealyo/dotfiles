@@ -1,5 +1,7 @@
 ---
 - hosts: localhost
+  vars_files:
+    - vault_password.yml
   tasks:
     # Install packages using Homebrew
     - name: Install packages with Homebrew
@@ -125,8 +127,6 @@
         src: ssh/id_rsa
         dest: ~/.ssh/id_rsa
         mode: 0600
-      vars_files:
-        - "vault_password.yml"
 
     # Copy public key
     - name: Copy SSH public key
