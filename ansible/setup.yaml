@@ -79,25 +79,25 @@
 
     # Install Erlang
     - name: Install Erlang
-      shell: ". $HOME/.asdf/asdf.sh && asdf install erlang latest && asdf global erlang latest"
+      shell: "asdf install erlang latest && asdf global erlang latest"
       args:
         executable: /bin/bash
 
     # Install Elixir
     - name: Install Elixir
-      shell: ". $HOME/.asdf/asdf.sh && asdf install elixir latest && asdf global elixir latest"
+      shell: "asdf install elixir latest && asdf global elixir latest"
       args:
         executable: /bin/bash
 
     # Install Ruby
     - name: Install Ruby
-      shell: ". $HOME/.asdf/asdf.sh && asdf install ruby latest && asdf global ruby latest"
+      shell: "asdf install ruby latest && asdf global ruby latest"
       args:
         executable: /bin/bash
 
     # Install Go
     - name: Install Go
-      shell: ". $HOME/.asdf/asdf.sh && asdf install golang latest && asdf global golang latest"
+      shell: "asdf install golang latest && asdf global golang latest"
       args:
         executable: /bin/bash
 
