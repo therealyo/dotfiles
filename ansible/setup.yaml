@@ -20,37 +20,33 @@
         - zsh-autosuggestions
         - zsh-syntax-highlighting
 
-    # Ensure the dotfiles directory exists
-    - name: Ensure dotfiles directory exists
+    # Ensure the ~/.config directory exists
+    - name: Ensure ~/.config directory exists
       file:
-        path: ~/dotfiles
+        path: ~/.config
         state: directory
 
-    # Remove existing Neovim config before linking (optional, only if you want to start fresh)
-    - name: Remove existing Neovim config
+    # Remove existing Neovim symlink before creating the new one
+    - name: Remove existing Neovim config symlink
       file:
         path: ~/.config/nvim
         state: absent
 
-    # Stow Neovim config
-    - name: Stow Neovim config
-      ansible.builtin.command: stow nvim
-      args:
-        chdir: ~/dotfiles
+    # Create directory-level symlink for Neovim
+    - name: Stow Neovim config in ~/.config
+      ansible.builtin.command: stow -d ~/dotfiles -t ~/.config nvim
 
-    # Remove existing WezTerm config before linking (optional)
-    - name: Remove existing WezTerm config
+    # Remove existing WezTerm symlink before creating the new one
+    - name: Remove existing WezTerm config symlink
       file:
         path: ~/.config/wezterm
         state: absent
 
-    # Stow WezTerm config
-    - name: Stow WezTerm config
-      ansible.builtin.command: stow wezterm
-      args:
-        chdir: ~/dotfiles
+    # Create directory-level symlink for WezTerm
+    - name: Stow WezTerm config in ~/.config
+      ansible.builtin.command: stow -d ~/dotfiles -t ~/.config wezterm
 
-    # Remove existing Zsh config before linking (optional)
+    # Remove existing Zsh config before linking
     - name: Remove existing Zsh config
       file:
         path: ~/.zshrc
@@ -64,8 +60,10 @@
 
     # Install Oh My Zsh
     - name: Install Oh My Zsh
-      ansible.builtin.command: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+      shell: |
+        curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh | bash
       args:
+        executable: /bin/bash
         creates: ~/.oh-my-zsh
 
     # Install asdf plugins
