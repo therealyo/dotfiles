@@ -19,46 +19,7 @@
         - asdf
         - zsh-autosuggestions
         - zsh-syntax-highlighting
-
-    # Ensure the ~/.config directory exists
-    - name: Ensure ~/.config directory exists
-      file:
-        path: ~/.config
-        state: directory
-
-    # Remove existing Neovim symlink before creating the new one
-    - name: Remove existing Neovim config symlink
-      file:
-        path: ~/.config/nvim
-        state: absent
-
-    # Create directory-level symlink for Neovim
-    - name: Stow Neovim config in ~/.config
-      ansible.builtin.command: stow -d ~/dotfiles -t ~/.config nvim
-
-    # Remove existing WezTerm symlink before creating the new one
-    - name: Remove existing WezTerm config symlink
-      file:
-        path: ~/.config/wezterm
-        state: absent
-
-    # Create directory-level symlink for WezTerm
-    - name: Stow WezTerm config in ~/.config
-      ansible.builtin.command: stow -d ~/dotfiles -t ~/.config wezterm
-
-    # Remove existing Zsh config before linking
-    - name: Remove existing Zsh config
-      file:
-        path: ~/.zshrc
-        state: absent
-
-    # Stow Zsh config
-    - name: Stow Zsh config
-      ansible.builtin.command: stow zsh
-      args:
-        chdir: ~/dotfiles
-
-    # Install Oh My Zsh
+        
     - name: Install Oh My Zsh
       shell: |
         curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh | bash
@@ -66,7 +27,27 @@
         executable: /bin/bash
         creates: ~/.oh-my-zsh
 
-    # Install asdf plugins
+    - name: Ensure ~/.config directory exists
+      file:
+        path: ~/.config
+        state: directory
+
+    - name: Remove existing Neovim config symlink
+      file:
+        path: ~/.config/nvim
+        state: absent
+
+    - name: Stow Neovim config in ~/.config
+      ansible.builtin.command: stow -d ~/dotfiles -t ~/.config nvim --no-folding
+
+    - name: Remove existing WezTerm config symlink
+      file:
+        path: ~/.config/wezterm
+        state: absent
+
+    - name: Stow WezTerm config in ~/.config
+      ansible.builtin.command: stow -d ~/dotfiles -t ~/.config wezterm --no-folding
+
     - name: Install asdf plugins
       shell: |
         . $HOME/.asdf/asdf.sh
