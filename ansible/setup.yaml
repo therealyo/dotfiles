@@ -1,4 +1,3 @@
----
 - hosts: localhost
   tasks:
     - name: Install packages with Homebrew
@@ -21,26 +20,55 @@
         - zsh-autosuggestions
         - zsh-syntax-highlighting
 
+    # Ensure the dotfiles directory exists
+    - name: Ensure dotfiles directory exists
+      file:
+        path: ~/dotfiles
+        state: directory
+
+    # Remove existing Neovim config before linking (optional, only if you want to start fresh)
+    - name: Remove existing Neovim config
+      file:
+        path: ~/.config/nvim
+        state: absent
+
+    # Stow Neovim config
     - name: Stow Neovim config
       ansible.builtin.command: stow nvim
       args:
         chdir: ~/dotfiles
 
+    # Remove existing WezTerm config before linking (optional)
+    - name: Remove existing WezTerm config
+      file:
+        path: ~/.config/wezterm
+        state: absent
+
+    # Stow WezTerm config
     - name: Stow WezTerm config
       ansible.builtin.command: stow wezterm
       args:
         chdir: ~/dotfiles
 
+    # Remove existing Zsh config before linking (optional)
+    - name: Remove existing Zsh config
+      file:
+        path: ~/.zshrc
+        state: absent
+
+    # Stow Zsh config
     - name: Stow Zsh config
       ansible.builtin.command: stow zsh
       args:
         chdir: ~/dotfiles
 
+    # Install Oh My Zsh
     - name: Install Oh My Zsh
       ansible.builtin.command: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
       args:
         creates: ~/.oh-my-zsh
 
+    # Install asdf plugins
     - name: Install asdf plugins
       shell: |
         . $HOME/.asdf/asdf.sh
@@ -51,40 +79,43 @@
       args:
         executable: /bin/bash
 
+    # Install Erlang
     - name: Install Erlang
       shell: ". $HOME/.asdf/asdf.sh && asdf install erlang latest && asdf global erlang latest"
       args:
         executable: /bin/bash
 
+    # Install Elixir
     - name: Install Elixir
       shell: ". $HOME/.asdf/asdf.sh && asdf install elixir latest && asdf global elixir latest"
       args:
         executable: /bin/bash
 
+    # Install Ruby
     - name: Install Ruby
       shell: ". $HOME/.asdf/asdf.sh && asdf install ruby latest && asdf global ruby latest"
       args:
         executable: /bin/bash
 
+    # Install Go
     - name: Install Go
       shell: ". $HOME/.asdf/asdf.sh && asdf install golang latest && asdf global golang latest"
       args:
         executable: /bin/bash
 
+    # Install NVM
+    - name: Install NVM
       ansible.builtin.command: /bin/bash -c "$(curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash)"
       args:
         creates: ~/.nvm/nvm.sh
 
+    # Install latest Node.js with nvm
     - name: Install latest Node.js with nvm
       shell: ". $HOME/.nvm/nvm.sh && nvm install node && nvm use node"
       args:
         executable: /bin/bash
 
-    - name: Install goimports for Go
-      shell: ". $HOME/.asdf/asdf.sh && go install golang.org/x/tools/cmd/goimports@latest"
-      args:
-        executable: /bin/bash
-
+    # Ensure SSH directory exists
     - name: Ensure SSH directory exists
       file:
         path: "~/.ssh"
@@ -94,27 +125,27 @@
     # Copy encrypted private key
     - name: Decrypt and copy SSH private key
       ansible.builtin.copy:
-        src: ssh/id_rsa
-        dest: ~/.ssh/id_rsa
+        src: ssh/id_ed25519
+        dest: ~/.ssh/id_ed25519
         mode: 0600
 
     # Copy public key
     - name: Copy SSH public key
       ansible.builtin.copy:
-        src: ssh/id_rsa.pub
-        dest: ~/.ssh/id_rsa.pub
+        src: ssh/id_ed25519.pub
+        dest: ~/.ssh/id_ed25519.pub
         mode: 0644
 
     # Ensure correct permissions for SSH private key
     - name: Ensure correct permissions for SSH private key
       file:
-        path: "~/.ssh/id_rsa"
+        path: "~/.ssh/id_ed25519"
         mode: '0600'
 
     # Ensure correct permissions for SSH public key
     - name: Ensure correct permissions for SSH public key
       file:
-        path: "~/.ssh/id_rsa.pub"
+        path: "~/.ssh/id_ed25519.pub"
         mode: '0644'
 
     # Install JetBrains Mono font
@@ -148,5 +179,4 @@
       ansible.builtin.file:
         path: /tmp/JetBrainsMono
         state: absent
-
 
