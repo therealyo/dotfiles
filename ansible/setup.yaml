@@ -19,7 +19,7 @@
         - asdf
         - zsh-autosuggestions
         - zsh-syntax-highlighting
-        
+
     - name: Install Oh My Zsh
       shell: |
         curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh | bash
@@ -27,27 +27,43 @@
         executable: /bin/bash
         creates: ~/.oh-my-zsh
 
+    # Ensure ~/.config directory exists
     - name: Ensure ~/.config directory exists
       file:
         path: ~/.config
         state: directory
 
+    # Remove existing Neovim config symlink before creating the new one
     - name: Remove existing Neovim config symlink
       file:
         path: ~/.config/nvim
         state: absent
 
+    # Stow Neovim config as directory-level symlink in ~/.config
     - name: Stow Neovim config in ~/.config
       ansible.builtin.command: stow -d ~/dotfiles -t ~/.config nvim --no-folding
 
+    # Remove existing WezTerm config symlink before creating the new one
     - name: Remove existing WezTerm config symlink
       file:
         path: ~/.config/wezterm
         state: absent
 
+    # Stow WezTerm config as directory-level symlink in ~/.config
     - name: Stow WezTerm config in ~/.config
       ansible.builtin.command: stow -d ~/dotfiles -t ~/.config wezterm --no-folding
 
+    # Remove existing .zshrc symlink before creating the new one
+    - name: Remove existing .zshrc symlink
+      file:
+        path: ~/.zshrc
+        state: absent
+
+    # Stow Zsh config as symlink for .zshrc
+    - name: Stow Zsh config in home directory
+      ansible.builtin.command: stow -d ~/dotfiles -t ~ zsh --no-folding
+
+    # Install asdf plugins
     - name: Install asdf plugins
       shell: |
         . $HOME/.asdf/asdf.sh
@@ -104,14 +120,14 @@
     # Copy encrypted private key
     - name: Decrypt and copy SSH private key
       ansible.builtin.copy:
-        src: ssh/id_ed25519
+        src: ~/dotfiles/ssh/id_ed25519
         dest: ~/.ssh/id_ed25519
         mode: 0600
 
     # Copy public key
     - name: Copy SSH public key
       ansible.builtin.copy:
-        src: ssh/id_ed25519.pub
+        src: ~/dotfiles/ssh/id_ed25519.pub
         dest: ~/.ssh/id_ed25519.pub
         mode: 0644
 
@@ -158,4 +174,24 @@
       ansible.builtin.file:
         path: /tmp/JetBrainsMono
         state: absent
+        
+    - name: Download Docker Desktop .dmg
+      ansible.builtin.get_url:
+        url: "https://desktop.docker.com/mac/stable/Docker.dmg"
+        dest: /tmp/Docker.dmg
+        mode: '0644'
 
+    - name: Attach Docker.dmg
+      ansible.builtin.command: sudo hdiutil attach /tmp/Docker.dmg
+      register: hdiutil_output
+
+    - name: Install Docker Desktop
+      ansible.builtin.command: sudo /Volumes/Docker/Docker.app/Contents/MacOS/install --accept-license
+
+    - name: Detach Docker.dmg
+      ansible.builtin.command: sudo hdiutil detach /Volumes/Docker
+
+    - name: Remove Docker.dmg
+      ansible.builtin.file:
+        path: /tmp/Docker.dmg
+        state: absent
