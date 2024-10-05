@@ -27,15 +27,15 @@
         executable: /bin/bash
         creates: ~/.oh-my-zsh
 
-    - name: Ensure ~/.config directory exists
-      file:
-        path: ~/.config
-        state: directory
-
     - name: Remove existing Neovim config symlink
       file:
         path: ~/.config
         state: absent
+
+    - name: Ensure ~/.config directory exists
+      file:
+        path: ~/.config
+        state: directory
 
     - name: Stow Neovim config in ~/.config
       ansible.builtin.command: stow -d ~/dotfiles -t ~/.config nvim 
