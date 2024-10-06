@@ -27,43 +27,30 @@
         executable: /bin/bash
         creates: ~/.oh-my-zsh
 
-    # Ensure ~/.config directory exists
+    - name: Remove existing Neovim config symlink
+      file:
+        path: ~/.config
+        state: absent
+
     - name: Ensure ~/.config directory exists
       file:
         path: ~/.config
         state: directory
 
-    # Remove existing Neovim config symlink before creating the new one
-    - name: Remove existing Neovim config symlink
-      file:
-        path: ~/.config/nvim
-        state: absent
-
-    # Stow Neovim config as directory-level symlink in ~/.config
     - name: Stow Neovim config in ~/.config
       ansible.builtin.command: stow -d ~/dotfiles -t ~/.config nvim 
 
-    # Remove existing WezTerm config symlink before creating the new one
-    - name: Remove existing WezTerm config symlink
-      file:
-        path: ~/.config/wezterm
-        state: absent
-
-    # Stow WezTerm config as directory-level symlink in ~/.config
     - name: Stow WezTerm config in ~/.config
       ansible.builtin.command: stow -d ~/dotfiles -t ~/.config wezterm 
 
-    # Remove existing .zshrc symlink before creating the new one
     - name: Remove existing .zshrc symlink
       file:
         path: ~/.zshrc
         state: absent
 
-    # Stow Zsh config as symlink for .zshrc
     - name: Stow Zsh config in home directory
       ansible.builtin.command: stow -d ~/dotfiles -t ~ zsh --no-folding 
 
-    # Install asdf plugins
     - name: Install asdf plugins
       shell: |
         asdf plugin add erlang
@@ -73,25 +60,21 @@
       args:
         executable: /bin/bash
 
-    # Install Erlang
     - name: Install Erlang
       shell: "asdf install erlang latest && asdf global erlang latest"
       args:
         executable: /bin/bash
 
-    # Install Elixir
     - name: Install Elixir
       shell: "asdf install elixir latest && asdf global elixir latest"
       args:
         executable: /bin/bash
 
-    # Install Ruby
     - name: Install Ruby
       shell: "asdf install ruby latest && asdf global ruby latest"
       args:
         executable: /bin/bash
 
-    # Install Go
     - name: Install Go
       shell: "asdf install golang latest && asdf global golang latest"
       args:
