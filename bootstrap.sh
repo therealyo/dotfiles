@@ -1,5 +1,31 @@
 #!/bin/bash
 
+cleanup() {
+  echo "Cleaning up old configurations and files..."
+  
+  if [ -d "$HOME/.config" ]; then
+    echo "Removing ~/.config directory..."
+    rm -rf "$HOME/.config"
+  fi
+
+  if [ -d "$HOME/dotfiles" ]; then
+    echo "Removing ~/dotfiles directory..."
+    rm -rf "$HOME/dotfiles"
+  fi
+
+  if [ -f "$HOME/.zshrc" ]; then
+    echo "Removing ~/.zshrc file..."
+    rm -f "$HOME/.zshrc"
+  fi
+
+  if [ -d "$HOME/.ssh" ]; then
+    echo "Removing ~/.ssh directory..."
+    rm -rf "$HOME/.ssh"
+  fi
+}
+
+cleanup
+
 if ! command -v brew &>/dev/null; then
   echo "Installing Homebrew..."
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -33,5 +59,5 @@ else
 fi
 
 cd "$HOME/dotfiles/ansible" || exit
-ansible-playbook setup.yaml --ask-vault-pass 
+ansible-playbook playbook.yml --ask-vault-pass --ask-become-pass
 
