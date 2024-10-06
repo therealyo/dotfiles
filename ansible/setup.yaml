@@ -96,7 +96,7 @@
         creates: ~/.nvm/nvm.sh
 
     - name: Install latest Node.js with nvm
-      shell: "nvm install node && nvm use node"
+      shell: ". $HOME/.nvm/nvm.sh && nvm install node && nvm use node"
       args:
         executable: /bin/bash
 
