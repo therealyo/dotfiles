@@ -177,6 +177,9 @@
       ansible.builtin.command: sudo hdiutil attach /tmp/Docker.dmg
       register: hdiutil_output
 
+    - name: Install Rosetta 2. Required for Mac ARM
+      ansible.builtin.command: softwareupdate --install-rosetta --agree-to-license     
+      
     - name: Install Docker Desktop
       ansible.builtin.command: sudo /Volumes/Docker/Docker.app/Contents/MacOS/install --accept-license
 
