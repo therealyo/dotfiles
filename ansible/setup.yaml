@@ -43,7 +43,7 @@
         state: directory
 
     - name: Stow Neovim config in ~/.config
-      ansible.builtin.command: stow -d ~/dotfiles -t ~/.config nvim 
+      ansible.builtin.command: stow -d ~/dotfiles -t ~/.config/nvim nvim 
 
     - name: Ensure ~/.config/wezterm directory exists
       file:
@@ -51,7 +51,7 @@
         state: directory
 
     - name: Stow WezTerm config in ~/.config
-      ansible.builtin.command: stow -d ~/dotfiles -t ~/.config wezterm 
+      ansible.builtin.command: stow -d ~/dotfiles -t ~/.config/wezterm wezterm 
 
     - name: Remove existing .zshrc symlink
       file:
@@ -132,7 +132,14 @@
       ansible.builtin.get_url:
         url: https://github.com/JetBrains/JetBrainsMono/releases/download/v2.304/JetBrainsMono-2.304.zip
         dest: /tmp/JetBrainsMono.zip
+        force: yes
 
+    - name: Ensure JetBrainsMono directory exists
+      file:
+        path: "/tmp/JetBrainsMono"
+        state: directory
+        mode: 0700
+        
     - name: Unzip JetBrains Mono font
       ansible.builtin.unarchive:
         src: /tmp/JetBrainsMono.zip
