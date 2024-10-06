@@ -169,7 +169,7 @@
         
     - name: Download Docker Desktop .dmg
       ansible.builtin.get_url:
-        url: "https://desktop.docker.com/mac/stable/Docker.dmg"
+        url: "https://desktop.docker.com/mac/main/arm64/Docker.dmg"
         dest: /tmp/Docker.dmg
         mode: '0644'
 
