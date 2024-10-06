@@ -41,7 +41,7 @@
 
     # Stow Neovim config as directory-level symlink in ~/.config
     - name: Stow Neovim config in ~/.config
-      ansible.builtin.command: stow -d ~/dotfiles -t ~/.config nvim --no-folding
+      ansible.builtin.command: stow -d ~/dotfiles -t ~/.config nvim 
 
     # Remove existing WezTerm config symlink before creating the new one
     - name: Remove existing WezTerm config symlink
@@ -51,7 +51,7 @@
 
     # Stow WezTerm config as directory-level symlink in ~/.config
     - name: Stow WezTerm config in ~/.config
-      ansible.builtin.command: stow -d ~/dotfiles -t ~/.config wezterm --no-folding
+      ansible.builtin.command: stow -d ~/dotfiles -t ~/.config wezterm 
 
     # Remove existing .zshrc symlink before creating the new one
     - name: Remove existing .zshrc symlink
@@ -61,12 +61,11 @@
 
     # Stow Zsh config as symlink for .zshrc
     - name: Stow Zsh config in home directory
-      ansible.builtin.command: stow -d ~/dotfiles -t ~ zsh --no-folding
+      ansible.builtin.command: stow -d ~/dotfiles -t ~ zsh --no-folding 
 
     # Install asdf plugins
     - name: Install asdf plugins
       shell: |
-        . $HOME/.asdf/asdf.sh
         asdf plugin add erlang
         asdf plugin add elixir
         asdf plugin add ruby
@@ -98,52 +97,44 @@
       args:
         executable: /bin/bash
 
-    # Install NVM
     - name: Install NVM
       ansible.builtin.command: /bin/bash -c "$(curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash)"
       args:
         creates: ~/.nvm/nvm.sh
 
-    # Install latest Node.js with nvm
     - name: Install latest Node.js with nvm
-      shell: ". $HOME/.nvm/nvm.sh && nvm install node && nvm use node"
+      shell: "nvm install node && nvm use node"
       args:
         executable: /bin/bash
 
-    # Ensure SSH directory exists
     - name: Ensure SSH directory exists
       file:
         path: "~/.ssh"
         state: directory
         mode: 0700
 
-    # Copy encrypted private key
     - name: Decrypt and copy SSH private key
       ansible.builtin.copy:
         src: ~/dotfiles/ssh/id_ed25519
         dest: ~/.ssh/id_ed25519
         mode: 0600
 
-    # Copy public key
     - name: Copy SSH public key
       ansible.builtin.copy:
         src: ~/dotfiles/ssh/id_ed25519.pub
         dest: ~/.ssh/id_ed25519.pub
         mode: 0644
 
-    # Ensure correct permissions for SSH private key
     - name: Ensure correct permissions for SSH private key
       file:
         path: "~/.ssh/id_ed25519"
         mode: '0600'
 
-    # Ensure correct permissions for SSH public key
     - name: Ensure correct permissions for SSH public key
       file:
         path: "~/.ssh/id_ed25519.pub"
         mode: '0644'
 
-    # Install JetBrains Mono font
     - name: Download JetBrains Mono font
       ansible.builtin.get_url:
         url: https://github.com/JetBrains/JetBrainsMono/releases/download/v2.304/JetBrainsMono-2.304.zip
