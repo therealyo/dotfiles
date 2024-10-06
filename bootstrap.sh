@@ -59,5 +59,5 @@ else
 fi
 
 cd "$HOME/dotfiles/ansible" || exit
-ansible-playbook setup.yml --ask-vault-pass --ask-become-pass
+ansible-playbook setup.yaml --ask-vault-pass --ask-become-pass
 
