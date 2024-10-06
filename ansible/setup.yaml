@@ -37,8 +37,18 @@
         path: ~/.config
         state: directory
 
+    - name: Ensure ~/.config/nvim directory exists
+      file:
+        path: ~/.config/nvim
+        state: directory
+
     - name: Stow Neovim config in ~/.config
       ansible.builtin.command: stow -d ~/dotfiles -t ~/.config nvim 
+
+    - name: Ensure ~/.config/wezterm directory exists
+      file:
+        path: ~/.config/wezterm
+        state: directory
 
     - name: Stow WezTerm config in ~/.config
       ansible.builtin.command: stow -d ~/dotfiles -t ~/.config wezterm 
@@ -169,3 +179,4 @@
       ansible.builtin.file:
         path: /tmp/Docker.dmg
         state: absent
+
