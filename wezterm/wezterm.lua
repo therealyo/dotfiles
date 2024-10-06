@@ -196,31 +196,4 @@ config.mouse_bindings = {
 	},
 }
 
--- Fix highlight on Shift + Arrow keys
--- Removed conflicting key bindings to allow default behavior
-
--- TMUX-like status bar
-wezterm.on("update-right-status", function(window, _)
-	local solid_left_arrow = ""
-	local arrow_foreground = { foreground = { color = "#c6a0f6" } }
-	local prefix = ""
-
-	if window:leader_is_active() then
-		prefix = " " .. utf8.char(0x1f30a) -- Ocean wave
-		solid_left_arrow = utf8.char(0xe0b2)
-	end
-
-	if window:active_tab():tab_id() ~= 0 then
-		arrow_foreground = { foreground = { color = "#1e2030" } }
-	end -- Arrow color based on if tab is first pane
-
-	window:set_left_status(wezterm.format({
-		{ background = { color = "#b7bdf8" } },
-		{ text = prefix },
-		arrow_foreground,
-		{ text = solid_left_arrow },
-	}))
-end)
-
--- Return the configuration to WezTerm
 return config

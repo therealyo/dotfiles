@@ -155,6 +155,7 @@
         group: wheel
         remote_src: yes
         force: yes
+      become: yes
 
     - name: Clean up downloaded JetBrains Mono files
       ansible.builtin.file:
