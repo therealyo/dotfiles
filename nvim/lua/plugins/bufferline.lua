@@ -33,15 +33,15 @@ return {
 				-- end,
 
 				-- Shift bufferline when NvimTree is open
-				offsets = {
-					{
-						filetype = "NvimTree",
-						text = "File Explorer",
-						highlight = "Directory",
-						text_align = "center",
-						separator = true,
-					},
-				},
+				-- offsets = {
+				-- 	{
+				-- 		filetype = "NvimTree",
+				-- 		text = "File Explorer",
+				-- 		highlight = "Directory",
+				-- 		text_align = "center",
+				-- 		separator = true,
+				-- 	},
+				-- },
 			},
 		})
 	end,
