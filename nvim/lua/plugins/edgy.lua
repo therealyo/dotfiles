@@ -83,8 +83,6 @@ return {
 				})
 			end
 
-			print(opts)
-
 			return opts
 		end,
 	},
