@@ -40,7 +40,7 @@ return {
 		map("<C-j>", require("smart-splits").move_cursor_down, "Move to window below")
 		map("<C-k>", require("smart-splits").move_cursor_up, "Move to window above")
 		map("<C-l>", require("smart-splits").move_cursor_right, "Move to right window")
-		map("<C-\\>", require("smart-splits").move_cursor_previous, "Move to previous window")
+		-- map("<C-\\>", require("smart-splits").move_cursor_previous, "Move to previous window")
 
 		-- Swapping buffers between windows
 		map("<leader><leader>h", require("smart-splits").swap_buf_left, "Swap buffer with window on the left")

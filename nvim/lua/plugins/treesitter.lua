@@ -32,4 +32,33 @@ return {
 		},
 		indent = { enable = true, disable = { "ruby" } },
 	},
+	{
+		"RRethy/nvim-treesitter-endwise",
+		event = "InsertEnter",
+		requires = { "nvim-treesitter/nvim-treesitter" },
+		config = function()
+			require("nvim-treesitter.configs").setup({
+				endwise = {
+					enable = true,
+				},
+			})
+		end,
+	},
+	{
+		"luckasRanarison/tailwind-tools.nvim",
+		name = "tailwind-tools",
+		build = ":UpdateRemotePlugins",
+		dependencies = {
+			"nvim-treesitter/nvim-treesitter",
+			"nvim-telescope/telescope.nvim", -- optional
+			"neovim/nvim-lspconfig", -- optional
+		},
+		opts = {
+			extension = {
+				patterns = {
+					ruby = { [[class= "([^"]*)]] },
+				},
+			},
+		},
+	},
 }
