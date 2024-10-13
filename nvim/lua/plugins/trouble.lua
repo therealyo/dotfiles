@@ -5,7 +5,7 @@ return {
 		opts = {
 			modes = {
 				lsp = {
-					win = { position = "right" }, -- Show diagnostics on the right side
+					win = { position = "right" },
 				},
 			},
 		},

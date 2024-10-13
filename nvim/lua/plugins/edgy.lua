@@ -1,30 +1,41 @@
 return {
 	{
 		"folke/edgy.nvim",
-		lazy = false, -- Load on startup
-		config = function()
-			require("edgy").setup({
+		lazy = false,
+		keys = {
+			{
+				"<leader>ue",
+				function()
+					require("edgy").toggle()
+				end,
+				desc = "Edgy Toggle",
+			},
+			{
+				"<leader>uE",
+				function()
+					require("edgy").select()
+				end,
+				desc = "Edgy Select Window",
+			},
+		},
+		opts = function()
+			local opts = {
 				animate = {
 					enabled = false,
 				},
 				bottom = {
 					{
 						ft = "toggleterm",
-						size = { height = 0.3 },
+						size = { height = 0.2 },
 						filter = function(buf, win)
 							return vim.api.nvim_win_get_config(win).relative == ""
 						end,
 					},
-					-- {
-					-- 	ft = "trouble",
-					-- 	title = "Diagnosics",
-					-- 	size = { height = 0.3 },
-					-- },
-					-- "Trouble",
+					"Trouble",
 					{
 						ft = "qf", -- QuickFix list
 						title = "QuickFix",
-						size = { height = 0.3 },
+						size = { height = 0.2 },
 					},
 					{
 						ft = "help",
@@ -38,21 +49,14 @@ return {
 					{
 						ft = "NvimTree", -- NvimTree for file explorer
 						title = "File Explorer",
-						size = { width = 0.15 },
-					},
-				},
-				right = {
-					{
-						ft = "trouble",
-						title = "Diagnostics",
-						size = { width = 0.3 },
+						size = { width = 0.2 },
 					},
 				},
 				keys = {
-					["<A-l>"] = function(win)
+					["<A-h>"] = function(win)
 						win:resize("width", 2)
 					end,
-					["<A-h>"] = function(win)
+					["<A-l>"] = function(win)
 						win:resize("width", -2)
 					end,
 					["<A-k>"] = function(win)
@@ -62,16 +66,26 @@ return {
 						win:resize("height", -2)
 					end,
 				},
-			})
+			}
+			--
+			for _, pos in ipairs({ "top", "bottom", "left", "right" }) do
+				opts[pos] = opts[pos] or {}
+				table.insert(opts[pos], {
+					ft = "trouble",
+					size = { height = 0.2, width = 0.2 },
+					filter = function(_buf, win)
+						return vim.w[win].trouble
+							and vim.w[win].trouble.position == pos
+							and vim.w[win].trouble.type == "split"
+							and vim.w[win].trouble.relative == "editor"
+							and not vim.w[win].trouble_preview
+					end,
+				})
+			end
 
-			-- Keybindings for toggling Edgy windows
-			vim.keymap.set("n", "<leader>ue", function()
-				require("edgy").toggle()
-			end, { desc = "Toggle Edgy", noremap = true, silent = true })
+			print(opts)
 
-			vim.keymap.set("n", "<leader>uE", function()
-				require("edgy").select()
-			end, { desc = "Select Edgy Window", noremap = true, silent = true })
+			return opts
 		end,
 	},
 	{
