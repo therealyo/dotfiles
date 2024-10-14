@@ -34,6 +34,7 @@
   "nvim-scrollbar": { "branch": "main", "commit": "d09f14aa16c9f2748e77008f9da7b1f76e4e7b85" },
   "nvim-tree.lua": { "branch": "master", "commit": "4a9e82d10a3715d0c3845e1d2f66ddfb8b711253" },
   "nvim-treesitter": { "branch": "master", "commit": "ef52e44bb24161e5138b3de5beadab3f3fcff233" },
+  "nvim-treesitter-context": { "branch": "master", "commit": "78a81c7494e7d1a08dd1200b556933e513fd9f29" },
   "nvim-treesitter-endwise": { "branch": "master", "commit": "8b34305ffc28bd75a22f5a0a9928ee726a85c9a6" },
   "nvim-ts-autotag": { "branch": "main", "commit": "e239a560f338be31337e7abc3ee42515daf23f5e" },
   "nvim-web-devicons": { "branch": "master", "commit": "6b53401918a9033a41159d012160c5fb5eb249ae" },
@@ -49,8 +50,10 @@
   "todo-comments.nvim": { "branch": "main", "commit": "ae0a2afb47cf7395dc400e5dc4e05274bf4fb9e0" },
   "toggleterm.nvim": { "branch": "main", "commit": "48be57eaba817f038d61bbf64d2c597f578c0827" },
   "trouble.nvim": { "branch": "main", "commit": "254145ffd528b98eb20be894338e2d5c93fa02c2" },
+  "twilight.nvim": { "branch": "main", "commit": "1584c0b0a979b71fd86b18d302ba84e9aba85b1b" },
   "undotree": { "branch": "master", "commit": "78b5241191852ffa9bb5da5ff2ee033160798c3b" },
   "vim-be-good": { "branch": "master", "commit": "4fa57b7957715c91326fcead58c1fa898b9b3625" },
   "vim-fugitive": { "branch": "master", "commit": "d4877e54cef67f5af4f950935b1ade19ed6b7370" },
-  "which-key.nvim": { "branch": "main", "commit": "fb070344402cfc662299d9914f5546d840a22126" }
+  "which-key.nvim": { "branch": "main", "commit": "fb070344402cfc662299d9914f5546d840a22126" },
+  "zen-mode.nvim": { "branch": "main", "commit": "29b292bdc58b76a6c8f294c961a8bf92c5a6ebd6" }
 }
