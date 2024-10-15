@@ -19,5 +19,6 @@ return {
 		vim.keymap.set("n", "<leader>dc", "<cmd>DiffviewClose<CR>", { desc = "Close Diffview" })
 		vim.keymap.set("n", "<leader>df", "<cmd>DiffviewToggleFiles<CR>", { desc = "Toggle Diffview Files" })
 		vim.keymap.set("n", "<leader>dp", "<cmd>DiffviewFocusFiles<CR>", { desc = "Focus Diffview Files" })
+		vim.keymap.set("n", "<leader>dh", "<cmd>DiffviewFileHistory<CR>", { noremap = true, silent = true })
 	end,
 }

@@ -9,7 +9,7 @@ return {
 					transparent = false,
 					dim_inactive = true,
 					modules = {
-						dashboard = true,
+						-- dashboard = true,
 						fidget = true,
 						indent_blankline = true,
 						gitsigns = true,

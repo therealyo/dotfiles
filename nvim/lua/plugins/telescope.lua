@@ -76,9 +76,6 @@ return {
 		vim.keymap.set("n", "<leader>s.", builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
 		vim.keymap.set("n", "<leader>sb", builtin.buffers, { desc = "[S]earch existing buffers" })
 
-		-- Projects integration
-		local projects = require("project_nvim")
-
 		pcall(require("telescope").load_extension, "projects")
 
 		vim.keymap.set(

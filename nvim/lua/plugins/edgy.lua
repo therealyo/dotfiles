@@ -44,11 +44,36 @@ return {
 							return vim.bo[buf].buftype == "help"
 						end,
 					},
+					{
+						ft = "fugitive",
+						title = "Git Status",
+						size = { height = 0.2 },
+					},
+					{
+						ft = "DiffviewFileHistory",
+						title = "File History",
+						size = { height = 0.3 },
+					},
 				},
 				left = {
 					{
 						ft = "NvimTree", -- NvimTree for file explorer
 						title = "File Explorer",
+						size = { width = 0.2 },
+					},
+					{
+						ft = "undotree", -- NvimTree for file explorer
+						title = "Undotree",
+						size = { width = 0.2 },
+					},
+					{
+						ft = "diff", -- NvimTree for file explorer
+						title = "Undotree diff",
+						size = { width = 0.2 },
+					},
+					{
+						ft = "DiffviewFiles", -- NvimTree for file explorer
+						title = "Diff Files",
 						size = { width = 0.2 },
 					},
 				},
