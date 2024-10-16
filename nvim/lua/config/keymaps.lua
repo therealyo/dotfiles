@@ -53,7 +53,7 @@ vim.keymap.set("n", "<A-,>", "<cmd> BufferLineCyclePrev <CR>") --"  cycle pre
 vim.keymap.set("n", "<A-s-.>", "<cmd> BufferLineMoveNext <CR>") --"  cycle next buffer"
 vim.keymap.set("n", "<A-s-,>", "<cmd> BufferLineMovePrev <CR>") --"  cycle prev buffer"
 vim.keymap.set("n", "<A-f>", "<cmd> BufferLinePick <CR>")
-vim.keymap.set("n", "<leader>b", "<cmd> bp|sp|bn|bd! <CR>")
+vim.keymap.set("n", "<leader>B", "<cmd> bp|sp|bn|bd! <CR>")
 for i = 1, 9 do
 	-- vim.keymap.set("n", "<A-" .. i .. ">", function() require("bufferline").go_to_buffer(i) end)
 	vim.keymap.set("n", "<A-" .. i .. ">", "<cmd>" .. i .. "tabn<CR>")
