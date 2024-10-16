@@ -11,30 +11,39 @@ if wezterm.config_builder then
 end
 
 -- Color scheme
--- config.color_scheme = "Catppuccin Macchiato"
-config.color_scheme = "GitHub Dark" -- Set the theme to GitHub Dark
+config.color_scheme = "Catppuccin Macchiato"
+-- config.color_scheme = "Nightfly (Gogh)"
+-- config.color_scheme = "GitHub Dark" -- Set the theme to GitHub Dark
 -- config.window_background_opacity = 0.9 -- Slight transparency for the terminal background
--- config.colors = {
--- 	tab_bar = {
--- 		background = "#282c34",
--- 		active_tab = {
--- 			bg_color = "#61afef",
--- 			fg_color = "#282c34",
--- 		},
--- 		inactive_tab = {
--- 			bg_color = "#3e4451",
--- 			fg_color = "#abb2bf",
--- 		},
--- 	},
+-- config.window_padding = {
+-- 	left = 0,
+-- 	right = 0,
+-- 	top = 0,
+-- 	bottom = 0,
 -- }
-
-config.window_padding = {
-	left = 20,
-	right = 5,
-	top = 10,
-	bottom = 0,
+local padding = {
+	left = "1cell",
+	right = "1cell",
+	top = "0.5cell",
+	bottom = "0.5cell",
 }
 
+wezterm.on("update-status", function(window, pane)
+	local overrides = window:get_config_overrides() or {}
+	if string.find(pane:get_title(), "^n-vi-m-.*") then
+		overrides.window_padding = {
+			left = 0,
+			right = 0,
+			top = 0,
+			bottom = 0,
+		}
+	else
+		overrides.window_padding = padding
+	end
+	window:set_config_overrides(overrides)
+end)
+
+config.native_macos_fullscreen_mode = false
 -- Tab bar settings
 config.hide_tab_bar_if_only_one_tab = true
 -- Font settings (matching VSCode config)
