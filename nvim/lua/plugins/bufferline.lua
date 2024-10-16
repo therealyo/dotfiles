@@ -47,23 +47,6 @@ return {
 				separator_style = "thin",
 				always_show_bufferline = true,
 				themable = true,
-
-				-- diagnostics = "nvim_lsp",
-				-- diagnostics_indicator = function(count, level, diagnostics_dict, context)
-				-- 	local icon = level:match("error") and "" or (level:match("warning") and "" or "")
-				-- 	return " " .. icon .. " " .. count
-				-- end,
-
-				-- Shift bufferline when NvimTree is open
-				-- offsets = {
-				-- 	{
-				-- 		filetype = "NvimTree",
-				-- 		text = "File Explorer",
-				-- 		highlight = "Directory",
-				-- 		text_align = "center",
-				-- 		separator = true,
-				-- 	},
-				-- },
 			},
 		})
 	end,

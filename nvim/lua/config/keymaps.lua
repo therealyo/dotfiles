@@ -1,7 +1,6 @@
 vim.g.mapleader = " "
 vim.keymap.set("", "<Space>", "<Nop>", { silent = true, noremap = true })
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
-vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 
 -- Move lines up and down in visual mode
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
@@ -48,11 +47,6 @@ vim.keymap.set("n", "<leader>w", "<cmd>w<cr><esc>", { desc = "Save file" })
 
 -- BufferLine
 vim.keymap.set("n", "<S-b>", "<cmd> enew <CR>") --"烙 new buffer"
-vim.keymap.set("n", "<A-.>", "<cmd> BufferLineCycleNext <CR>") --"  cycle next buffer"
-vim.keymap.set("n", "<A-,>", "<cmd> BufferLineCyclePrev <CR>") --"  cycle prev buffer"
-vim.keymap.set("n", "<A-s-.>", "<cmd> BufferLineMoveNext <CR>") --"  cycle next buffer"
-vim.keymap.set("n", "<A-s-,>", "<cmd> BufferLineMovePrev <CR>") --"  cycle prev buffer"
-vim.keymap.set("n", "<A-f>", "<cmd> BufferLinePick <CR>")
 vim.keymap.set("n", "<leader>B", "<cmd> bp|sp|bn|bd! <CR>")
 for i = 1, 9 do
 	-- vim.keymap.set("n", "<A-" .. i .. ">", function() require("bufferline").go_to_buffer(i) end)
