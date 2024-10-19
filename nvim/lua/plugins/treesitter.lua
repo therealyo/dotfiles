@@ -19,6 +19,7 @@ return {
 				"vimdoc",
 				"elixir",
 				"eex",
+				"heex",
 				"go",
 				"erlang",
 				"ruby",
