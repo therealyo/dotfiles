@@ -3,7 +3,8 @@ return {
 	config = function()
 		require("lualine").setup({
 			options = {
-				theme = "github_dark", -- Setting GitHub dark theme
+				-- theme = "github_dark", -- Setting GitHub dark theme
+				theme = "catpuccin-frappe",
 				section_separators = { left = "", right = "" },
 				component_separators = { left = "", right = "" },
 			},

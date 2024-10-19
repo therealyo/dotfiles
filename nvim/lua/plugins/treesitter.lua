@@ -59,7 +59,14 @@ return {
 		opts = {
 			extension = {
 				patterns = {
-					ruby = { [[class= "([^"]*)]] },
+					ruby = {
+						[[class= "([^"]*)]],
+						[[class: "([^"]*)]],
+						[[class= '([^"]*)]],
+						[[class: '([^"]*)]],
+						'~H""".*class="([^"]*)".*"""',
+						'~F""".*class="([^"]*)".*"""',
+					},
 				},
 			},
 		},
