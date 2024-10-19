@@ -25,3 +25,9 @@ vim.api.nvim_create_autocmd(
 	{ "InsertEnter", "WinLeave" },
 	{ pattern = "*", command = ":IBLDisable", group = blanklineGrp }
 )
+
+vim.api.nvim_create_autocmd("VimEnter", {
+	callback = function()
+		vim.cmd("DiffviewClose")
+	end,
+})

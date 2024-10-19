@@ -14,14 +14,22 @@ end
 config.color_scheme = "Catppuccin Frappe"
 -- config.color_scheme = "Nightfly (Gogh)"
 -- config.color_scheme = "GitHub Dark" -- Set the theme to GitHub Dark
-config.window_background_opacity = 0.95 -- Slight transparency for the terminal background
-config.macos_window_background_blur = 20
+-- config.window_background_opacity = 0.95 -- Slight transparency for the terminal background
+-- config.macos_window_background_blur = 20
 config.window_padding = {
 	left = 5,
 	right = 0,
 	top = 5,
 	bottom = 0,
 }
+
+-- config.background = {
+-- 	{
+-- 		source = {
+-- 			File = "/Users/therealyo/dotfiles/wezterm/backgrounds/catppuccin.png",
+-- 		},
+-- 	},
+-- }
 
 config.native_macos_fullscreen_mode = false
 -- Tab bar settings

@@ -26,7 +26,7 @@ return {
 				bottom = {
 					{
 						ft = "toggleterm",
-						size = { height = 0.2 },
+						size = { height = 0.3 },
 						filter = function(buf, win)
 							return vim.api.nvim_win_get_config(win).relative == ""
 						end,
@@ -35,11 +35,11 @@ return {
 					{
 						ft = "qf", -- QuickFix list
 						title = "QuickFix",
-						size = { height = 0.2 },
+						size = { height = 0.3 },
 					},
 					{
 						ft = "help",
-						size = { height = 20 },
+						size = { height = 0.3 },
 						filter = function(buf)
 							return vim.bo[buf].buftype == "help"
 						end,
@@ -47,11 +47,6 @@ return {
 					{
 						ft = "fugitive",
 						title = "Git Status",
-						size = { height = 0.2 },
-					},
-					{
-						ft = "DiffviewFileHistory",
-						title = "File History",
 						size = { height = 0.3 },
 					},
 				},
@@ -69,6 +64,11 @@ return {
 					{
 						ft = "diff", -- NvimTree for file explorer
 						title = "Undotree diff",
+						size = { width = 0.2 },
+					},
+					{
+						ft = "DiffviewFileHistory",
+						title = "File History",
 						size = { width = 0.2 },
 					},
 					{
@@ -95,9 +95,15 @@ return {
 			--
 			for _, pos in ipairs({ "top", "bottom", "left", "right" }) do
 				opts[pos] = opts[pos] or {}
+				local size = {}
+				if pos == "top" or pos == "bottom" then
+					size.height = 0.2
+				elseif pos == "left" or pos == "right" then
+					size.width = 0.2
+				end
 				table.insert(opts[pos], {
 					ft = "trouble",
-					size = { height = 0.2, width = 0.2 },
+					size = size,
 					filter = function(_buf, win)
 						return vim.w[win].trouble
 							and vim.w[win].trouble.position == pos
