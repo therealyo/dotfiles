@@ -30,16 +30,20 @@ return { -- Autoformat
 				lsp_format = lsp_format_opt,
 			}
 		end,
+		formatters = {
+			jq = {
+				command = "jq",
+				args = { "--indent", "4", "." },
+			},
+		},
 		formatters_by_ft = {
 			lua = { "stylua" },
 			go = { "goimports", "gofmt" },
-			-- Conform can also run multiple formatters sequentially
-			-- python = { "isort", "black" },
-			--
-			-- You can use 'stop_after_first' to run the first available formatter from the list
 
+			json = { "jq" },
 			ruby = { "rubocop" },
 			eruby = { "erb-format" },
+			sh = { "shfmt" },
 
 			javascript = { "prettierd", "prettier", stop_after_first = true },
 		},
