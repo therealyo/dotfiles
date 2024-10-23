@@ -76,7 +76,18 @@ return {
 
 	-- Add the colorscheme repositories needed for the themes
 	{ "rafi/awesome-vim-colorschemes" },
-	{ "catppuccin/nvim", name = "catppuccin" },
+	{
+		"catppuccin/nvim",
+		name = "catppuccin",
+		priority = 1000,
+		opts = {
+			dim_inactive = {
+				enabled = true,
+				shade = "dark",
+				percentage = 0.15,
+			},
+		},
+	},
 	{ "rebelot/kanagawa.nvim" },
 	{ "projekt0n/github-nvim-theme" },
 	{ "folke/tokyonight.nvim" },

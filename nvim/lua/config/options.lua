@@ -1,56 +1,60 @@
-local opt = vim.opt
-
 -- line numbers
-opt.relativenumber = true
-opt.number = true
+vim.opt.relativenumber = true
+vim.opt.number = true
 
 -- tabs & indentation
-opt.tabstop = 4
-opt.shiftwidth = 4
-opt.expandtab = true
-opt.autoindent = true
+vim.opt.tabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.expandtab = true
+vim.opt.autoindent = true
 
 -- line wrapping
-opt.wrap = false
+vim.opt.wrap = false
 
 -- search settings
-opt.ignorecase = true
-opt.smartcase = true
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
 
-opt.swapfile = false
-opt.backup = false
-opt.undodir = os.getenv("HOME") .. "/.undodir"
-opt.undofile = true
+vim.opt.swapfile = false
+vim.opt.backup = false
+vim.opt.undodir = os.getenv("HOME") .. "/.undodir"
+vim.opt.undofile = true
 
-opt.hlsearch = false
-opt.incsearch = true
+vim.opt.hlsearch = false
+vim.opt.incsearch = true
 
-opt.termguicolors = true
+vim.opt.termguicolors = true
 
-opt.scrolloff = 8
-opt.signcolumn = "yes"
-opt.isfname:append("@-@")
+vim.opt.scrolloff = 8
+vim.opt.signcolumn = "yes"
+vim.opt.isfname:append("@-@")
 
-opt.updatetime = 50
+vim.opt.updatetime = 50
 
-opt.colorcolumn = "80"
+vim.opt.colorcolumn = "80"
 
 -- Decrease mapped sequence wait time
 -- Displays which-key popup sooner
-opt.timeoutlen = 300
+vim.opt.timeoutlen = 300
 
 -- Configure how new splits should be opened
-opt.splitright = true
-opt.splitbelow = true
+vim.opt.splitright = true
+vim.opt.splitbelow = true
 
 -- Sets how neowill display certain whitespace characters in the editor.
 --  See `:help 'list'`
 --  and `:help 'listchars'`
--- opt.list = true
--- opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+-- vim.opt.list = true
+-- vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 
 -- Preview substitutions live, as you type!
-opt.inccommand = "split"
+vim.opt.inccommand = "split"
 
 -- Show which line your cursor is on
-opt.cursorline = true
+vim.opt.cursorline = true
+
+vim.o.foldcolumn = "1" -- '0' is not bad
+vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
+vim.o.foldlevelstart = 99
+vim.o.foldenable = true
+vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
