@@ -1,17 +1,37 @@
 return {
 	"ThePrimeagen/harpoon",
+	branch = "harpoon2",
+	dependencies = { "nvim-lua/plenary.nvim" },
 	config = function()
-		local mark = require("harpoon.mark")
-		local ui = require("harpoon.ui")
-		local function toggle_move()
-			if vim.v.count > 0 then
-				require("harpoon.ui").nav_file(vim.v.count)
-			else
-				require("harpoon.mark").toggle_file()
-			end
-		end
+		local harpoon = require("harpoon")
 
-		vim.keymap.set("n", "<leader>a", toggle_move)
-		vim.keymap.set("n", "<leader>sa", ui.toggle_quick_menu, { desc = "[S]earch [A]nchored" })
+		harpoon:setup()
+		vim.keymap.set("n", "<leader>a", function()
+			harpoon:list():add()
+		end)
+
+		vim.keymap.set("n", "<leader>sa", function()
+			harpoon.ui:toggle_quick_menu(harpoon:list())
+		end)
+
+		vim.keymap.set("n", "<C-h>", function()
+			harpoon:list():select(1)
+		end)
+		vim.keymap.set("n", "<C-t>", function()
+			harpoon:list():select(2)
+		end)
+		vim.keymap.set("n", "<C-n>", function()
+			harpoon:list():select(3)
+		end)
+		vim.keymap.set("n", "<C-s>", function()
+			harpoon:list():select(4)
+		end)
+
+		vim.keymap.set("n", "<C-k>", function()
+			harpoon:list():prev()
+		end)
+		vim.keymap.set("n", "<C-j>", function()
+			harpoon:list():next()
+		end)
 	end,
 }

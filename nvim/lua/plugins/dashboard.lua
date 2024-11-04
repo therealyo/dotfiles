@@ -58,18 +58,6 @@ return {
 					},
 					{ action = "Telescope find_files cwd=~/.config/nvim", desc = " Config", icon = " ", key = "c" },
 					{
-						action = 'lua require("persistence").load()',
-						desc = " Restore Session",
-						icon = " ",
-						key = "s",
-					},
-					{
-						action = 'lua require("persistence").select()',
-						desc = " Select Sessions",
-						icon = " ",
-						key = "S",
-					},
-					{
 						action = "Telescope",
 						desc = " Telescope",
 						icon = " ",
