@@ -8,15 +8,15 @@ return {
 						name = "Gruvbox Dark",
 						colorscheme = "gruvbox",
 						before = [[
-              vim.opt.background = "dark"
-            ]],
+	             vim.opt.background = "dark"
+	           ]],
 					},
 					{
 						name = "Gruvbox Light",
 						colorscheme = "gruvbox",
 						before = [[
-              vim.opt.background = "light"
-            ]],
+	             vim.opt.background = "light"
+	           ]],
 					},
 
 					-- Catppuccin configurations (Macchiato, Frappe, Latte, Mocha)

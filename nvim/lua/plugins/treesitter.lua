@@ -4,6 +4,7 @@ return {
 		build = ":TSUpdate",
 		main = "nvim-treesitter.configs", -- Sets main module to use for opts
 		-- [[ Configure Treesitter ]] See `:help nvim-treesitter`
+		-- dependencies = { "nvim-ts-autotag" },
 		opts = {
 			ensure_installed = {
 				"bash",
@@ -23,17 +24,34 @@ return {
 				"go",
 				"erlang",
 				"ruby",
+				"tsx",
+				"typescript",
+				"toml",
+				"fish",
+				"php",
+				"json",
+				"yaml",
+				"swift",
+				"css",
+				"python",
+				"javascript",
+				"svelte",
 			},
 			-- Autoinstall languages that are not installed
 			auto_install = true,
 			highlight = {
 				enable = true,
-				-- Some languages depend on vim's regex highlighting system (such as Ruby) for indent rules.
-				--  If you are experiencing weird indenting issues, add the language to
-				--  the list of additional_vim_regex_highlighting and disabled languages for indent.
 				additional_vim_regex_highlighting = { "ruby" },
 			},
-			indent = { enable = true, disable = { "ruby" } },
+			-- autotag = {
+			-- 	enable = true,
+			-- },
+			context_commentstring = {
+				enable = true,
+				enable_autocmd = false,
+			},
+
+			indent = { enable = true, disable = { "ruby", "yaml" } },
 		},
 	},
 	{

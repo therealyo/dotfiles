@@ -79,6 +79,9 @@ return {
 
 		-- LSP server configurations
 		local servers = {
+			svelte = {},
+			yamlls = {},
+			eslint = {},
 			gopls = {
 				cmd = { "gopls" },
 				filetypes = { "go", "gomod" },
@@ -139,6 +142,7 @@ return {
 					"blade",
 					"clojure",
 					"django-html",
+					"svelte",
 					"eelixir",
 					"elixir",
 					"erb",
