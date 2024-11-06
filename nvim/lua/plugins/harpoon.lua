@@ -15,7 +15,7 @@ return {
 		end)
 
 		for i = 1, 9 do
-			vim.keymap.set("n", "<leader>j" .. i, function()
+			vim.keymap.set("n", "<leader>" .. i, function()
 				harpoon:list():select(i)
 			end, { desc = "Go to Harpoon mark " .. i })
 		end
