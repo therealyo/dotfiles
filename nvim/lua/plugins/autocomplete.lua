@@ -112,6 +112,7 @@ return { -- Autocompletion
 				{ name = "nvim_lsp" },
 				{ name = "luasnip" },
 				{ name = "path" },
+				{ name = "vim-dadbod-completion", priority = 700 }, -- add new source
 			},
 		})
 	end,
