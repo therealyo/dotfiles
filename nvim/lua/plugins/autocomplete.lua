@@ -44,15 +44,6 @@ return { -- Autocompletion
 		local cmp_autopairs = require("nvim-autopairs.completion.cmp")
 		cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 
-		-- `/` cmdline setup.
-		cmp.setup.cmdline("/", {
-			mapping = cmp.mapping.preset.cmdline(),
-			sources = {
-				{ name = "buffer" },
-			},
-		})
-
-		-- `:` cmdline setup.
 		cmp.setup.cmdline(":", {
 			mapping = cmp.mapping.preset.cmdline(),
 			sources = cmp.config.sources({
@@ -111,7 +102,7 @@ return { -- Autocompletion
 				--    $body
 				--  end
 				--
-				-- <c-l> will move you to the right of each of the expansion locations.
+				-- <c-l> will move you to the right of each o the expansion location.
 				-- <c-h> is similar, except moving you backwards.
 				["<C-l>"] = cmp.mapping(function()
 					if luasnip.expand_or_locally_jumpable() then
