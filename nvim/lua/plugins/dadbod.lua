@@ -16,8 +16,11 @@ return {
 	},
 	{
 		"kristijanhusak/vim-dadbod-ui",
+		init = function()
+			vim.g.db_ui_use_nerd_fonts = 1
+		end,
 		config = function()
-			vim.keymap.set("n", "<leader>DB", "<cmd>DBUI<cr>", { desc = "Open [DB] UI" })
+			vim.keymap.set("n", "<leader>DB", "<cmd>tabnew<cr><cmd>DBUI<cr>", { desc = "Open [DB] UI" })
 		end,
 	},
 }

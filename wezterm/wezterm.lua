@@ -30,6 +30,48 @@ config.window_padding = {
 -- 		},
 -- 	},
 -- }
+local function basename(s)
+	return string.gsub(s, "(.*[/\\])(.*)", "%2")
+end
+
+local function is_vim(pane)
+	local process_name = basename(pane:get_foreground_process_name())
+	return process_name == "nvim" or process_name == "vim"
+end
+
+local direction_keys = {
+	Left = "h",
+	Down = "j",
+	Up = "k",
+	Right = "l",
+	h = "Left",
+	j = "Down",
+	k = "Up",
+	l = "Right",
+}
+
+local function split_nav(resize_or_move, key)
+	return {
+		key = key,
+		mods = resize_or_move == "resize" and "META" or "CTRL",
+		action = wezterm.action_callback(function(win, pane)
+			if is_vim(pane) then
+				-- pass the keys through to vim/nvim
+				win:perform_action({
+					SendKey = { key = key, mods = resize_or_move == "resize" and "META" or "CTRL" },
+				}, pane)
+			else
+				if resize_or_move == "resize" then
+					win:perform_action({ AdjustPaneSize = { direction_keys[key], 3 } }, pane)
+				else
+					win:perform_action({ ActivatePaneDirection = direction_keys[key] }, pane)
+				end
+			end
+		end),
+	}
+end
+
+-- config.keys = {}
 
 config.native_macos_fullscreen_mode = false
 -- Tab bar settings
@@ -64,71 +106,59 @@ config.keys = {
 		key = "D",
 		action = wezterm.action.SplitVertical({ domain = "CurrentPaneDomain" }),
 	},
-	-- Close pane (Leader + q)
-	{
-		mods = "LEADER",
-		key = "q",
-		action = wezterm.action.CloseCurrentPane({ confirm = true }),
-	},
-	-- Create new tab (Leader + c)
-	{
-		mods = "LEADER",
-		key = "c",
-		action = wezterm.action.SpawnTab("CurrentPaneDomain"),
-	},
-	-- Move between tabs (Leader + b/n)
-	{
-		mods = "LEADER",
-		key = "b",
-		action = wezterm.action.ActivateTabRelative(-1),
-	},
-	{
-		mods = "LEADER",
-		key = "n",
-		action = wezterm.action.ActivateTabRelative(1),
-	},
-	-- Navigate between panes using Vim-like motions (Ctrl + h/j/k/l)
-	{
-		mods = "CMD",
-		key = "h",
-		action = wezterm.action.ActivatePaneDirection("Left"),
-	},
-	{
-		mods = "CMD",
-		key = "j",
-		action = wezterm.action.ActivatePaneDirection("Down"),
-	},
-	{
-		mods = "CMD",
-		key = "k",
-		action = wezterm.action.ActivatePaneDirection("Up"),
-	},
-	{
-		mods = "CMD",
-		key = "l",
-		action = wezterm.action.ActivatePaneDirection("Right"),
-	},
-	-- Adjust pane size (Leader + Arrow keys)
-	{
-		mods = "LEADER",
-		key = "LeftArrow",
-		action = wezterm.action.AdjustPaneSize({ "Left", 5 }),
-	},
-	{
-		mods = "LEADER",
-		key = "RightArrow",
-		action = wezterm.action.AdjustPaneSize({ "Right", 5 }),
-	},
-	{
-		mods = "LEADER",
-		key = "UpArrow",
-		action = wezterm.action.AdjustPaneSize({ "Up", 5 }),
-	},
-	{
-		mods = "LEADER",
-		key = "DownArrow",
-		action = wezterm.action.AdjustPaneSize({ "Down", 5 }),
-	},
+	-- -- Close pane (Leader + q)
+	-- {
+	-- 	mods = "LEADER",
+	-- 	key = "q",
+	-- 	action = wezterm.action.CloseCurrentPane({ confirm = true }),
+	-- },
+	-- -- Create new tab (Leader + c)
+	-- {
+	-- 	mods = "LEADER",
+	-- 	key = "c",
+	-- 	action = wezterm.action.SpawnTab("CurrentPaneDomain"),
+	-- },
+	-- -- Move between tabs (Leader + b/n)
+	-- {
+	-- 	mods = "LEADER",
+	-- 	key = "b",
+	-- 	action = wezterm.action.ActivateTabRelative(-1),
+	-- },
+	-- {
+	-- 	mods = "LEADER",
+	-- 	key = "n",
+	-- 	action = wezterm.action.ActivateTabRelative(1),
+	-- },
+	-- -- Navigate between panes using Vim-like motions (Ctrl + h/j/k/l)
+	-- {
+	-- 	mods = "CMD",
+	-- 	key = "h",
+	-- 	action = wezterm.action.ActivatePaneDirection("Left"),
+	-- },
+	-- {
+	-- 	mods = "CMD",
+	-- 	key = "j",
+	-- 	action = wezterm.action.ActivatePaneDirection("Down"),
+	-- },
+	-- {
+	-- 	mods = "CMD",
+	-- 	key = "k",
+	-- 	action = wezterm.action.ActivatePaneDirection("Up"),
+	-- },
+	-- {
+	-- 	mods = "CMD",
+	-- 	key = "l",
+	-- 	action = wezterm.action.ActivatePaneDirection("Right"),
+	-- },
+
+	split_nav("move", "h"),
+	split_nav("move", "j"),
+	split_nav("move", "k"),
+	split_nav("move", "l"),
+	split_nav("resize", "h"),
+	split_nav("resize", "j"),
+	split_nav("resize", "k"),
+	split_nav("resize", "l"),
 	-- Move by one word (Option + Arrow keys)
 	{
 		key = "LeftArrow",
