@@ -107,49 +107,11 @@ config.keys = {
 		action = wezterm.action.SplitVertical({ domain = "CurrentPaneDomain" }),
 	},
 	-- -- Close pane (Leader + q)
-	-- {
-	-- 	mods = "LEADER",
-	-- 	key = "q",
-	-- 	action = wezterm.action.CloseCurrentPane({ confirm = true }),
-	-- },
-	-- -- Create new tab (Leader + c)
-	-- {
-	-- 	mods = "LEADER",
-	-- 	key = "c",
-	-- 	action = wezterm.action.SpawnTab("CurrentPaneDomain"),
-	-- },
-	-- -- Move between tabs (Leader + b/n)
-	-- {
-	-- 	mods = "LEADER",
-	-- 	key = "b",
-	-- 	action = wezterm.action.ActivateTabRelative(-1),
-	-- },
-	-- {
-	-- 	mods = "LEADER",
-	-- 	key = "n",
-	-- 	action = wezterm.action.ActivateTabRelative(1),
-	-- },
-	-- -- Navigate between panes using Vim-like motions (Ctrl + h/j/k/l)
-	-- {
-	-- 	mods = "CMD",
-	-- 	key = "h",
-	-- 	action = wezterm.action.ActivatePaneDirection("Left"),
-	-- },
-	-- {
-	-- 	mods = "CMD",
-	-- 	key = "j",
-	-- 	action = wezterm.action.ActivatePaneDirection("Down"),
-	-- },
-	-- {
-	-- 	mods = "CMD",
-	-- 	key = "k",
-	-- 	action = wezterm.action.ActivatePaneDirection("Up"),
-	-- },
-	-- {
-	-- 	mods = "CMD",
-	-- 	key = "l",
-	-- 	action = wezterm.action.ActivatePaneDirection("Right"),
-	-- },
+	{
+		mods = "LEADER",
+		key = "q",
+		action = wezterm.action.CloseCurrentPane({ confirm = true }),
+	},
 
 	split_nav("move", "h"),
 	split_nav("move", "j"),
