@@ -1,42 +1,5 @@
 return {
 	{
-		"quarto-dev/quarto-nvim",
-		dependencies = {
-			"jmbuhr/otter.nvim",
-			"nvim-treesitter/nvim-treesitter",
-			{
-				"GCBallesteros/jupytext.nvim",
-				config = true,
-			},
-		},
-		config = function()
-			require("quarto").setup({
-				debug = false,
-				closePreviewOnExit = true,
-				lspFeatures = {
-					enabled = true,
-					chunks = "curly",
-					languages = { "r", "python", "julia", "bash", "html" },
-					diagnostics = {
-						enabled = true,
-						triggers = { "BufWritePost" },
-					},
-					completion = {
-						enabled = true,
-					},
-				},
-				codeRunner = {
-					enabled = false,
-					default_method = "molten",
-					ft_runners = {
-						{ python = "molten" },
-					},
-					never_run = { "yaml" },
-				},
-			})
-		end,
-	},
-	{
 		"benlubas/molten-nvim",
 		dependencies = {
 			{
@@ -44,7 +7,6 @@ return {
 				config = true,
 			},
 		},
-		version = "^1.0.0",
 		build = ":UpdateRemotePlugins",
 		init = function()
 			vim.g.molten_output_win_max_height = 12
@@ -55,7 +17,6 @@ return {
 			vim.g.molten_virt_lines_off_by_1 = true
 		end,
 		config = function()
-			vim.g.python3_host_prog = vim.fn.expand("~/.virtualenvs/neovim/bin/python3")
 			vim.keymap.set("n", "<localleader>mi", ":MoltenInit<CR>", { silent = true, desc = "[M]olten [I]nit" })
 			vim.keymap.set(
 				"n",
@@ -96,6 +57,43 @@ return {
 					vim.cmd("MoltenInit python3")
 				end
 			end, { desc = "Initialize Molten for python3", silent = true })
+		end,
+	},
+	{
+		"quarto-dev/quarto-nvim",
+		dependencies = {
+			"jmbuhr/otter.nvim",
+			"nvim-treesitter/nvim-treesitter",
+			{
+				"GCBallesteros/jupytext.nvim",
+				config = true,
+			},
+		},
+		config = function()
+			require("quarto").setup({
+				debug = false,
+				closePreviewOnExit = true,
+				lspFeatures = {
+					enabled = true,
+					chunks = "curly",
+					languages = { "r", "python", "julia", "bash", "html" },
+					diagnostics = {
+						enabled = true,
+						triggers = { "BufWritePost" },
+					},
+					completion = {
+						enabled = true,
+					},
+				},
+				codeRunner = {
+					enabled = false,
+					default_method = "molten",
+					ft_runners = {
+						{ python = "molten" },
+					},
+					never_run = { "yaml" },
+				},
+			})
 		end,
 	},
 }

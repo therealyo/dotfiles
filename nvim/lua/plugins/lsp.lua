@@ -111,7 +111,19 @@ return {
 					"heex",
 				},
 			},
-			pyright = {},
+			pyright = {
+				on_attach = on_attach,
+				capabilities = capabilities,
+				settings = {
+					python = {
+						analysis = {
+							diagnosticSeverityOverrides = {
+								reportUnusedExpression = "none",
+							},
+						},
+					},
+				},
+			},
 			rust_analyzer = {},
 			elixirls = {
 				cmd = { home .. "/lsp/elixirls/language_server.sh" },
