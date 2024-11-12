@@ -97,13 +97,13 @@ config.keys = {
 	-- Split pane horizontally (Leader + d)
 	{
 		mods = "LEADER",
-		key = "d",
+		key = "v",
 		action = wezterm.action.SplitHorizontal({ domain = "CurrentPaneDomain" }),
 	},
 	-- Split pane vertically (Leader + D)
 	{
-		mods = "LEADER|SHIFT",
-		key = "D",
+		mods = "LEADER",
+		key = "h",
 		action = wezterm.action.SplitVertical({ domain = "CurrentPaneDomain" }),
 	},
 	-- -- Close pane (Leader + q)
@@ -156,15 +156,6 @@ config.keys = {
 		action = wezterm.action.SendString("\x15"),
 	},
 }
-
--- Activate tab by number (Leader + number)
-for i = 0, 9 do
-	table.insert(config.keys, {
-		key = tostring(i),
-		mods = "LEADER",
-		action = wezterm.action.ActivateTab(i),
-	})
-end
 
 -- Tab bar configuration
 config.hide_tab_bar_if_only_one_tab = false
