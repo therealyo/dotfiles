@@ -53,3 +53,6 @@ for i = 1, 9 do
 	-- vim.keymap.set("n", "<A-" .. i .. ">", function() require("bufferline").go_to_buffer(i) end)
 	vim.keymap.set("n", "<A-" .. i .. ">", "<cmd>" .. i .. "tabn<CR>")
 end
+
+-- remove s bind in visual mode for mini.surround to work
+-- vim.api.nvim_del_keymap("x", "s")

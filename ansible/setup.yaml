@@ -18,6 +18,7 @@
         - libpq
         - eza
         - asdf
+        - obsidian
         - zsh-autosuggestions
         - zsh-syntax-highlighting
 

@@ -1,23 +1,10 @@
 return {
-	-- faster escape from instert mode using jj
-	-- {
-	-- 	"TheBlob42/houdini.nvim",
-	-- 	config = function()
-	-- 		require("houdini").setup({
-	-- 			mappings = { "jk" },
-	-- 			escape_sequence = {
-	-- 				["v"] = false,
-	-- 				["vs"] = false,
-	-- 				["V"] = false,
-	-- 				["Vs"] = false,
-	-- 				[""] = false,
-	-- 				["s"] = false,
-	-- 			},
-	-- 		})
-	-- 	end,
-	-- },
-	--
+	-- Faster escape from insert mode with jk
 	{
 		"nvim-zh/better-escape.vim",
+	},
+	-- Multi line select
+	{
+		"mg979/vim-visual-multi",
 	},
 }

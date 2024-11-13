@@ -8,30 +8,35 @@ return {
 		end,
 	},
 	{
-		"mikavilpas/yazi.nvim",
-		keys = {
-			{
-				"<leader>-",
-				"<cmd>Yazi<cr>",
-				desc = "Open yazi at the current file",
-			},
-			{
-				"<leader>cw",
-				"<cmd>Yazi cwd<cr>",
-				desc = "Open the file manager in nvim's working directory",
-			},
-			{
-				"<leader>e",
-				"<cmd>Yazi toggle<cr>",
-				desc = "Resume the last yazi session",
-			},
-		},
-		opts = {
-			open_for_directories = true,
-			keymaps = {
-				show_help = "<f1>",
-			},
-			floating_window_scaling_factor = 1,
-		},
+		"stevearc/oil.nvim",
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+		config = function()
+			CustomOilBar = function()
+				local path = vim.fn.expand("%")
+				path = path:gsub("oil://", "")
+
+				return "  " .. vim.fn.fnamemodify(path, ":.")
+			end
+
+			require("oil").setup({
+				columns = { "icon" },
+				keymaps = {
+					["<C-h>"] = false,
+					["<C-l>"] = false,
+					["<C-k>"] = false,
+					["<C-j>"] = false,
+					["<M-h>"] = "actions.select_split",
+				},
+				win_options = {
+					winbar = "%{v:lua.CustomOilBar()}",
+				},
+				view_options = {
+					show_hidden = true,
+				},
+			})
+
+			-- Open parent directory in floating window
+			vim.keymap.set("n", "<leader>e", require("oil").toggle_float)
+		end,
 	},
 }
