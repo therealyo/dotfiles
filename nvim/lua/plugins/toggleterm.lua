@@ -5,7 +5,11 @@ return {
 		opts = {},
 		config = function()
 			require("toggleterm").setup({
-				direction = "horizontal",
+				direction = "float",
+				float_opts = {
+					width = 500,
+					height = 100,
+				},
 			})
 
 			vim.keymap.set("n", "<leader>t", ":ToggleTerm<CR>", { desc = "Open [T]erminal" })

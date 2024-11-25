@@ -30,10 +30,10 @@ return {
 		end
 
 		-- Resizing splits
-		map("<A-h>", require("smart-splits").resize_left, "Resize window to the left")
-		map("<A-j>", require("smart-splits").resize_down, "Resize window down")
-		map("<A-k>", require("smart-splits").resize_up, "Resize window up")
-		map("<A-l>", require("smart-splits").resize_right, "Resize window to the right")
+		map("<C-A-h>", require("smart-splits").resize_left, "Resize window to the left")
+		map("<C-A-j>", require("smart-splits").resize_down, "Resize window down")
+		map("<C-A-k>", require("smart-splits").resize_up, "Resize window up")
+		map("<C-A-l>", require("smart-splits").resize_right, "Resize window to the right")
 
 		-- Moving between splits
 		map("<C-h>", require("smart-splits").move_cursor_left, "Move to left window")
