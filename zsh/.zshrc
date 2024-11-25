@@ -188,3 +188,9 @@ rmvenv() {
       rm -r $VENV_HOME/$1
   fi
 }
+
+alias terraform='docker run --rm \
+  -v "$(pwd):/workspace" \
+  -w /workspace \
+  -v ~/.aws:/root/.aws:ro \
+  hashicorp/terraform:1.9'
