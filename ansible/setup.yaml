@@ -24,6 +24,7 @@
         - eza
         - asdf
         - obsidian
+        - arc
         - nikitabobko/tap/aerospace
         - zsh-autosuggestions
         - zsh-syntax-highlighting
@@ -33,6 +34,7 @@
           - telegram
           - discord
           - obsidian
+          - arc
           
     - name: Install Oh My Zsh
       shell: |
