@@ -1,5 +1,10 @@
 - hosts: localhost
   tasks:
+    - name: Tap the nikitabobko Homebrew tap
+      ansible.builtin.command:
+        cmd: brew tap nikitabobko/tap
+      changed_when: false
+
     - name: Install packages with Homebrew
       homebrew:
         name: "{{ item }}"
@@ -22,7 +27,13 @@
         - nikitabobko/tap/aerospace
         - zsh-autosuggestions
         - zsh-syntax-highlighting
-
+      vars:
+        cask_packages:
+          - wezterm@nightly
+          - telegram
+          - discord
+          - obsidian
+          
     - name: Install Oh My Zsh
       shell: |
         curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh | bash
