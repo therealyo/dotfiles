@@ -194,3 +194,6 @@ alias terraform='docker run --rm \
   -w /workspace \
   -v ~/.aws:/root/.aws:ro \
   hashicorp/terraform:1.9'
+
+. "$HOME/.cargo/env"
+

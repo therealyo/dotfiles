@@ -38,8 +38,7 @@ return { -- Autoformat
 		},
 		formatters_by_ft = {
 			lua = { "stylua" },
-			go = { "goimports", "gofmt" },
-
+			go = { "goimports", "gofmt", "golines" },
 			json = { "jq" },
 			ruby = { "rubocop" },
 			eruby = { "erb-format" },
