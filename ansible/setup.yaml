@@ -69,6 +69,22 @@
     - name: Stow WezTerm config in ~/.config
       ansible.builtin.command: stow -d ~/dotfiles -t ~/.config/wezterm wezterm 
 
+    - name: Ensure ~/.config/aerospace directory exists
+      file:
+        path: ~/.config/aerospace
+        state: directory
+
+    - name: Stow Aerospace config in ~/.config
+      ansible.builtin.command: stow -d ~/dotfiles -t ~/.config/aerospace aerospace
+
+    - name: Ensure ~/.config/ghostty directory exists
+      file:
+        path: ~/.config/ghostty
+        state: directory
+
+    - name: Stow Ghostty config in ~/.config
+      ansible.builtin.command: stow -d ~/dotfiles -t ~/.config/ghostty ghostty
+
     - name: Remove existing .zshrc symlink
       file:
         path: ~/.zshrc
