@@ -194,16 +194,8 @@ alias terraform='docker run --rm \
   -w /workspace \
   -v ~/.aws:/root/.aws:ro \
   hashicorp/terraform:1.9'
-<<<<<<< HEAD
-<<<<<<< HEAD
 
 . "$HOME/.cargo/env"
 
-=======
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
->>>>>>> b93995a (test)
-=======
 # [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-#
 . "$HOME/.cargo/env"
->>>>>>> 3673dee (fix aerospace config + add ghostty config)
