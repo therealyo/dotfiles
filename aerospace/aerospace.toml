@@ -204,9 +204,9 @@ alt-shift-j = ['join-with down', 'mode main']
 alt-shift-k = ['join-with up', 'mode main']
 alt-shift-l = ['join-with right', 'mode main']
 
-down = 'volume down'
-up = 'volume up'
-shift-down = ['volume set 0', 'mode main']
+# down = 'volume down'
+# up = 'volume up'
+# shift-down = ['volume set 0', 'mode main']
 # This fixes ghostty and aerospace workflow, because ghostty uses native mac tabs
 # press opt-shift-semicolon f on start of ghostty
 [[on-window-detected]]

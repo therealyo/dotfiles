@@ -6,6 +6,7 @@
       changed_when: false
 
     - name: Install packages with Homebrew
+      ignore_errors: true
       homebrew:
         name: "{{ item }}"
       loop:
