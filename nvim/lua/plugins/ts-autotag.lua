@@ -16,6 +16,7 @@ return {
 			aliases = {
 				["eruby"] = "html",
 				["heex"] = "html",
+				["ex"] = "html",
 			},
 		})
 	end,

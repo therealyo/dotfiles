@@ -81,9 +81,7 @@ return {
 
 			-- LSP server configurations
 			local servers = {
-				svelte = {},
 				yamlls = {},
-				eslint = {},
 				gopls = {
 					cmd = { "gopls" },
 					filetypes = { "go", "gomod" },
@@ -95,22 +93,6 @@ return {
 							},
 							staticcheck = true,
 						},
-					},
-				},
-				emmet_ls = {
-					filetypes = {
-						"astro",
-						"css",
-						"eruby",
-						"html",
-						"javascriptreact",
-						"less",
-						"sass",
-						"scss",
-						"svelte",
-						"typescriptreact",
-						"vue",
-						"heex",
 					},
 				},
 				pyright = {},
@@ -128,6 +110,24 @@ return {
 				erlangls = {},
 				ruby_lsp = { enabled = true },
 				ts_ls = {},
+				eslint = {},
+				svelte = {},
+				emmet_ls = {
+					filetypes = {
+						"astro",
+						"css",
+						"eruby",
+						"html",
+						"javascriptreact",
+						"less",
+						"sass",
+						"scss",
+						"svelte",
+						"typescriptreact",
+						"vue",
+						"heex",
+					},
+				},
 				lua_ls = {
 					settings = {
 						Lua = {
