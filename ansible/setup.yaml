@@ -133,34 +133,6 @@
       args:
         executable: /bin/bash
 
-    - name: Ensure SSH directory exists
-      file:
-        path: "~/.ssh"
-        state: directory
-        mode: 0700
-
-    - name: Decrypt and copy SSH private key
-      ansible.builtin.copy:
-        src: ~/dotfiles/ssh/id_ed25519
-        dest: ~/.ssh/id_ed25519
-        mode: 0600
-
-    - name: Copy SSH public key
-      ansible.builtin.copy:
-        src: ~/dotfiles/ssh/id_ed25519.pub
-        dest: ~/.ssh/id_ed25519.pub
-        mode: 0644
-
-    - name: Ensure correct permissions for SSH private key
-      file:
-        path: "~/.ssh/id_ed25519"
-        mode: '0600'
-
-    - name: Ensure correct permissions for SSH public key
-      file:
-        path: "~/.ssh/id_ed25519.pub"
-        mode: '0644'
-
     - name: Download JetBrains Mono font
       ansible.builtin.get_url:
         url: https://github.com/JetBrains/JetBrainsMono/releases/download/v2.304/JetBrainsMono-2.304.zip
