@@ -145,7 +145,7 @@ alias jwth="decode_jwt 1"
 # Decode JWT Payload
 alias jwtp="decode_jwt 2"
 
-alias yz="yazi"
+alias f="yazi"
 export EDITOR=nvim
 
 

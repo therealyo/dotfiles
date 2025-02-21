@@ -29,24 +29,25 @@ return {
 			vim.keymap.set(mode, keys, func, { desc = "Smart Splits: " .. desc })
 		end
 
-		-- Resizing splits
-		map("<C-A-h>", require("smart-splits").resize_left, "Resize window to the left")
-		map("<C-A-j>", require("smart-splits").resize_down, "Resize window down")
-		map("<C-A-k>", require("smart-splits").resize_up, "Resize window up")
-		map("<C-A-l>", require("smart-splits").resize_right, "Resize window to the right")
-
-		-- Moving between splits
-		map("<C-h>", require("smart-splits").move_cursor_left, "Move to left window")
-		map("<C-j>", require("smart-splits").move_cursor_down, "Move to window below")
-		map("<C-k>", require("smart-splits").move_cursor_up, "Move to window above")
-		map("<C-l>", require("smart-splits").move_cursor_right, "Move to right window")
-		-- map("<C-\\>", require("smart-splits").move_cursor_previous, "Move to previous window")
-
-		-- Swapping buffers between windows
-		map("<leader><leader>h", require("smart-splits").swap_buf_left, "Swap buffer with window on the left")
-		map("<leader><leader>j", require("smart-splits").swap_buf_down, "Swap buffer with window below")
-		map("<leader><leader>k", require("smart-splits").swap_buf_up, "Swap buffer with window above")
-		map("<leader><leader>l", require("smart-splits").swap_buf_right, "Swap buffer with window on the right")
+		-- recommended mappings
+		-- resizing splits
+		-- these keymaps will also accept a range,
+		-- for example `10<A-h>` will `resize_left` by `(10 * config.default_amount)`
+		vim.keymap.set("n", "<A-h>", require("smart-splits").resize_left)
+		vim.keymap.set("n", "<A-j>", require("smart-splits").resize_down)
+		vim.keymap.set("n", "<A-k>", require("smart-splits").resize_up)
+		vim.keymap.set("n", "<A-l>", require("smart-splits").resize_right)
+		-- moving between splits
+		vim.keymap.set("n", "<C-h>", require("smart-splits").move_cursor_left)
+		vim.keymap.set("n", "<C-j>", require("smart-splits").move_cursor_down)
+		vim.keymap.set("n", "<C-k>", require("smart-splits").move_cursor_up)
+		vim.keymap.set("n", "<C-l>", require("smart-splits").move_cursor_right)
+		vim.keymap.set("n", "<C-\\>", require("smart-splits").move_cursor_previous)
+		-- swapping buffers between windows
+		vim.keymap.set("n", "<leader><leader>h", require("smart-splits").swap_buf_left)
+		vim.keymap.set("n", "<leader><leader>j", require("smart-splits").swap_buf_down)
+		vim.keymap.set("n", "<leader><leader>k", require("smart-splits").swap_buf_up)
+		vim.keymap.set("n", "<leader><leader>l", require("smart-splits").swap_buf_right)
 
 		-- Creating horizontal and vertical splits
 		map("<leader>sh", ":split<CR>", "Create horizontal split")

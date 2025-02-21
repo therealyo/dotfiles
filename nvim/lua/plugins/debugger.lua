@@ -17,16 +17,6 @@ return {
 
 			require("nvim-dap-virtual-text").setup({})
 
-			-- Handled by nvim-dap-go
-			-- dap.adapters.go = {
-			--   type = "server",
-			--   port = "${port}",
-			--   executable = {
-			--     command = "dlv",
-			--     args = { "dap", "-l", "127.0.0.1:${port}" },
-			--   },
-			-- }
-
 			local elixir_ls_debugger = vim.fn.exepath("elixir-ls-debugger")
 			if elixir_ls_debugger ~= "" then
 				dap.adapters.mix_task = {
@@ -76,10 +66,6 @@ return {
 				ui.close()
 			end
 
-			-- vim.highlight.create("DapBreakpoint", { ctermbg = 0, guifg = "#993939", guibg = "#31353f" }, false)
-			-- vim.highlight.create("DapLogPoint", { ctermbg = 0, guifg = "#61afef", guibg = "#31353f" }, false)
-			-- vim.highlight.create("DapStopped", { ctermbg = 0, guifg = "#98c379", guibg = "#31353f" }, false)
-			--
 			vim.fn.sign_define(
 				"DapBreakpoint",
 				{ text = "", texthl = "DapBreakpoint", linehl = "DapBreakpoint", numhl = "DapBreakpoint" }

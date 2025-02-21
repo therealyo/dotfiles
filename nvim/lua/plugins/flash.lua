@@ -9,6 +9,6 @@ return {
 	   { "F", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "[F]lash Treesitter" },
 	   { "r", mode = "o", function() require("flash").remote() end, desc = "[R]emote Flash" },
 	   { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
-	   { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
+	   { "<C-s>", mode = { "n" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
 	 },
 }
