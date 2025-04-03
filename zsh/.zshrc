@@ -1,4 +1,4 @@
-# If you come from bash you might have to change your $PATH.
+# I you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 . $(brew --prefix)/opt/asdf/libexec/asdf.sh
 
@@ -120,9 +120,8 @@ source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 export PATH=$(go env GOPATH)/bin:$PATH
 
-
-# export GOPATH=$HOME/go
-# export GOROOT=/usr/local/go
+export GOPATH=$HOME/go
+export GOBIN=$HOME/go/bin
 
 alias ls='eza'
 
@@ -200,4 +199,36 @@ alias terraform='docker run --rm \
 if command -v ngrok &>/dev/null; then
  eval "$(ngrok completion)"
 fi
+
+function json() {
+  # Check if fx is installed
+  if ! command -v fx &> /dev/null; then
+    echo "Error: fx is not installed. Please install it with 'npm install -g fx'"
+    return 1
+  fi
+
+  # If no arguments are provided, get input from clipboard
+  if [ $# -eq 0 ]; then
+    # Check for different clipboard commands based on OS
+    if command -v pbpaste &> /dev/null; then
+      # macOS
+      pbpaste | fx
+    elif command -v xclip &> /dev/null; then
+      # Linux with xclip
+      xclip -selection clipboard -o | fx
+    elif command -v wl-paste &> /dev/null; then
+      # Linux with Wayland
+      wl-paste | fx
+    elif command -v powershell.exe &> /dev/null; then
+      # Windows with WSL
+      powershell.exe Get-Clipboard | fx
+    else
+      echo "Error: No clipboard command found. Please install xclip, wl-paste, or use macOS/WSL."
+      return 1
+    fi
+  else
+    # If arguments are provided, use them as input
+    echo "$@" | fx
+  fi
+}
 # [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
