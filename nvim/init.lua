@@ -1,4 +1,4 @@
--- Keymaps
+-- keymaps
 require("config.keymaps")
 
 -- Autocommands
