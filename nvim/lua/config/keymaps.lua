@@ -1,5 +1,5 @@
 vim.g.mapleader = " "
-vim.maplocalleader = ","
+vim.g.maplocalleader = ","
 vim.keymap.set("", "<Space>", "<Nop>", { silent = true, noremap = true })
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 
@@ -29,10 +29,11 @@ vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]])
 vim.keymap.set("n", "Q", "<nop>")
 vim.keymap.set("n", "<leader>f", vim.lsp.buf.format)
 
-vim.keymap.set("n", "<A-k>", "<cmd>cnext<CR>zz")
-vim.keymap.set("n", "<A-j>", "<cmd>cprev<CR>zz")
-vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
-vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
+-- NOTE: this are in trouble.nvim
+-- vim.keymap.set("n", "<A-k>", "<cmd>cnext<CR>zz")
+-- vim.keymap.set("n", "<A-j>", "<cmd>cprev<CR>zz")
+-- vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
+-- vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
 
 -- Find and replace
 vim.keymap.set("n", "<leader>F", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])

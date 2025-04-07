@@ -7,8 +7,15 @@ return {
 				lsp = {
 					win = { position = "right" },
 				},
-				test = {
-					mode = "diagnostics",
+				diagnostics = {
+					preview = {
+						type = "split",
+						relative = "win",
+						position = "right",
+						size = 0.3,
+					},
+				},
+				quickfix = {
 					preview = {
 						type = "split",
 						relative = "win",
