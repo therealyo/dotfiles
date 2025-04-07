@@ -10,12 +10,15 @@ return {
 
 			-- Useful status updates for LSP.
 			-- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-			-- { "j-hui/fidget.nvim", opts = {} },
+			{ "j-hui/fidget.nvim", opts = {} },
 
 			-- Allows extra capabilities provided by nvim-cmp
 			"hrsh7th/cmp-nvim-lsp",
 		},
 		config = function()
+			vim.diagnostic.config({
+				virtual_text = true,
+			})
 			-- Callback function for LSP events
 			vim.api.nvim_create_autocmd("LspAttach", {
 				group = vim.api.nvim_create_augroup("kickstart-lsp-attach", { clear = true }),
@@ -88,9 +91,34 @@ return {
 					root_dir = require("lspconfig").util.root_pattern("go.work", "go.mod", ".git"),
 					settings = {
 						gopls = {
-							analyses = {
-								unusedparams = true,
+							gofumpt = true,
+							codelenses = {
+								gc_details = false,
+								generate = true,
+								regenerate_cgo = true,
+								run_govulncheck = true,
+								test = true,
+								tidy = true,
+								upgrade_dependency = true,
+								vendor = true,
 							},
+							hints = {
+								assignVariableTypes = true,
+								compositeLiteralFields = true,
+								compositeLiteralTypes = true,
+								constantValues = true,
+								functionTypeParameters = true,
+								parameterNames = true,
+								rangeVariableTypes = true,
+							},
+							analyses = {
+								nilness = true,
+								unusedparams = true,
+								unusedwrite = true,
+								useany = true,
+							},
+							usePlaceholders = true,
+							completeUnimported = true,
 							staticcheck = true,
 						},
 					},
@@ -133,6 +161,9 @@ return {
 						Lua = {
 							completion = {
 								callSnippet = "Replace",
+							},
+							hint = {
+								enable = true,
 							},
 						},
 					},
@@ -200,17 +231,17 @@ return {
 		end,
 	},
 	{
-		"ray-x/lsp_signature.nvim",
-		event = "InsertEnter",
-		opts = {
-			bind = true,
-			handler_opts = {
-				border = "rounded",
-			},
-		},
-		config = function(_, opts)
-			require("lsp_signature").setup(opts)
-		end,
+		-- "ray-x/lsp_signature.nvim",
+		-- event = "InsertEnter",
+		-- opts = {
+		-- 	bind = true,
+		-- 	handler_opts = {
+		-- 		border = "rounded",
+		-- 	},
+		-- },
+		-- config = function(_, opts)
+		-- 	require("lsp_signature").setup(opts)
+		-- end,
 	},
 	-- {
 	-- 	"VidocqH/lsp-lens.nvim",
