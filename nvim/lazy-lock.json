@@ -60,6 +60,7 @@
   "nvim-ufo": { "branch": "main", "commit": "61463090a4f55f5d080236ea62f09d1cd8976ff3" },
   "nvim-web-devicons": { "branch": "master", "commit": "57dfa947cc88cdf1baa2c7e13ed31edddd8fb1d1" },
   "obsidian.nvim": { "branch": "main", "commit": "ae1f76a75c7ce36866e1d9342a8f6f5b9c2caf9b" },
+  "octo.nvim": { "branch": "master", "commit": "ad981e343c1de1637eaa870be0b5e56be673b1d0" },
   "oil.nvim": { "branch": "master", "commit": "302bbaceeafc690e6419e0c8296e804d60cb9446" },
   "otter.nvim": { "branch": "main", "commit": "b00b642eb990a1a48cbe75aa73d6cb8be9cc4812" },
   "plenary.nvim": { "branch": "master", "commit": "857c5ac632080dba10aae49dba902ce3abf91b35" },

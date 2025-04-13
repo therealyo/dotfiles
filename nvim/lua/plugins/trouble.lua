@@ -12,7 +12,7 @@ return {
 						type = "split", -- split window
 						relative = "win", -- relative to current window
 						position = "right", -- right side
-						size = 0.3, -- 30% of the window
+						size = 0.25, -- 30% of the window
 					},
 				},
 				diagnostics = {
@@ -20,13 +20,7 @@ return {
 						type = "split", -- split window
 						relative = "win",
 						position = "bottom",
-						size = 0.3, -- 30% of the window
-					},
-					preview = {
-						type = "split",
-						relative = "win",
-						position = "right",
-						size = 0.3,
+						size = 0.25, -- 30% of the window
 					},
 				},
 				quickfix = {
@@ -34,13 +28,7 @@ return {
 						type = "split", -- split window
 						relative = "win",
 						position = "bottom",
-						size = 0.3, -- 30% of the window
-					},
-					preview = {
-						type = "float",
-						relative = "win",
-						position = "right",
-						size = 0.3,
+						size = 0.25, -- 30% of the window
 					},
 				},
 			},
