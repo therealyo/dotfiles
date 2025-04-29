@@ -9,6 +9,9 @@
     pushNonFastForward = false
     statusHints = false
 
+[commit]
+    verbose = true
+    
 [blame]
     coloring = highlightRecent
     date = relative
