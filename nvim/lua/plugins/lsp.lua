@@ -140,6 +140,18 @@ return {
 				ts_ls = {},
 				eslint = {},
 				svelte = {},
+				golangci_lint_ls = {
+					init_options = {
+						command = {
+							"golangci-lint",
+							"run",
+							"--output.json.path",
+							"stdout",
+							"--show-stats=false",
+							"--issues-exit-code=1",
+						},
+					},
+				},
 				emmet_ls = {
 					filetypes = {
 						"astro",
