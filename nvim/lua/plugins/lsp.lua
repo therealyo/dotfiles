@@ -129,9 +129,9 @@ return {
 					cmd = { home .. "/lsp/elixirls/language_server.sh" },
 					settings = {
 						dialyzerEnabled = true,
-						fetchDeps = false,
+						fetchDeps = true,
 						enableTestLenses = false,
-						suggestSpecs = false,
+						suggestSpecs = true,
 					},
 				},
 				dockerls = {},
