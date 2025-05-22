@@ -5,7 +5,12 @@ return {
 		opts = {
 			modes = {
 				lsp = {
-					win = { position = "right" },
+					win = {
+						type = "split", -- split window
+						relative = "win", -- relative to current window
+						position = "right", -- right side
+						size = 0.25, -- 30% of the window
+					},
 				},
 				symbols = { -- Configure symbols mode
 					win = {
