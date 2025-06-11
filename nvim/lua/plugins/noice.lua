@@ -3,16 +3,13 @@ return {
 	event = "VeryLazy",
 	opts = {},
 	dependencies = {
-		-- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
 		"MunifTanjim/nui.nvim",
-		-- OPTIONAL:
-		--   `nvim-notify` is only needed, if you want to use the notification view.
 	},
 	config = function()
 		require("noice").setup({
-			-- cmdline = {
-			-- 	view = "cmdline",
-			-- },
+			cmdline = {
+				view = "cmdline",
+			},
 
 			lsp = {
 				-- override markdown rendering so that **cmp** and other plugins use **Treesitter**

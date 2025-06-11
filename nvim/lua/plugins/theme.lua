@@ -8,15 +8,15 @@ return {
 						name = "Gruvbox Dark",
 						colorscheme = "gruvbox",
 						before = [[
-	             vim.opt.background = "dark"
-	           ]],
+		            vim.opt.background = "dark"
+		          ]],
 					},
 					{
 						name = "Gruvbox Light",
 						colorscheme = "gruvbox",
 						before = [[
-	             vim.opt.background = "light"
-	           ]],
+		            vim.opt.background = "light"
+		          ]],
 					},
 
 					-- Catppuccin configurations (Macchiato, Frappe, Latte, Mocha)
@@ -25,6 +25,9 @@ return {
 					{ name = "Catppuccin Latte", colorscheme = "catppuccin-latte" },
 					{ name = "Catppuccin Mocha", colorscheme = "catppuccin-mocha" },
 
+					{ name = "Rose Pine", colorscheme = "rose-pine-main" },
+					{ name = "Rose Pine Moon", colorscheme = "rose-pine-moon" },
+					{ name = "Rose Pine Dawn", colorscheme = "rose-pine-dawn" },
 					-- Kanagawa configurations (Lotus, Dragon)
 					{ name = "Kanagawa Lotus", colorscheme = "kanagawa-lotus" },
 					{ name = "Kanagawa Dragon", colorscheme = "kanagawa-dragon" },
@@ -91,4 +94,5 @@ return {
 	{ "rebelot/kanagawa.nvim" },
 	{ "projekt0n/github-nvim-theme" },
 	{ "folke/tokyonight.nvim" },
+	{ "rose-pine/neovim", name = "rose-pine" },
 }
