@@ -69,6 +69,10 @@ return {
 					{ name = "PaperColor Light", colorscheme = "PaperColor" },
 					{ name = "Molokai", colorscheme = "molokai" },
 					{ name = "Gruvbox Material", colorscheme = "gruvbox-material" },
+
+					{ name = "Vercel Light", colorscheme = "vercel light" },
+					{ name = "Vercel", colorscheme = "vercel" },
+					{ name = "nvim-grey", colorscheme = "grey" },
 				},
 
 				-- Enable live preview while selecting themes
@@ -92,7 +96,9 @@ return {
 		},
 	},
 	{ "rebelot/kanagawa.nvim" },
+	{ "tiesen243/vercel.nvim" },
 	{ "projekt0n/github-nvim-theme" },
 	{ "folke/tokyonight.nvim" },
 	{ "rose-pine/neovim", name = "rose-pine" },
+	{ "yorickpeterse/nvim-grey" },
 }

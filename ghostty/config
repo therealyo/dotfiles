@@ -1,4 +1,4 @@
-theme = GitHub-Dark-Dimmed
+theme = catppuccin-frappe
 
 keybind = cmd+a=unbind
 
