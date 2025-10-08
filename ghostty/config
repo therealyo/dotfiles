@@ -1,4 +1,7 @@
-theme = catppuccin-frappe
+theme = Catppuccin Frappe 
+font-family = GeistMono NFM
+
+macos-option-as-alt = true
 
 keybind = cmd+a=unbind
 
@@ -10,4 +13,4 @@ keybind = ctrl+a>l=goto_split:right
 keybind = ctrl+a>j=goto_split:bottom
 keybind = ctrl+a>k=goto_split:top
 
-keybind = cmd+a>t=toggle_quick_terminal
+window-save-state = always

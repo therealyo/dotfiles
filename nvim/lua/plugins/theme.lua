@@ -73,6 +73,10 @@ return {
 					{ name = "Vercel Light", colorscheme = "vercel light" },
 					{ name = "Vercel", colorscheme = "vercel" },
 					{ name = "nvim-grey", colorscheme = "grey" },
+
+					{ name = "alabaster", colorscheme = "alabaster" },
+					{ name = "tairiki", colorscheme = "tairiki" },
+					{ name = "oxocarbon", colorscheme = "oxocarbon" },
 				},
 
 				-- Enable live preview while selecting themes
@@ -88,6 +92,7 @@ return {
 		name = "catppuccin",
 		priority = 1000,
 		opts = {
+			no_italic = true,
 			dim_inactive = {
 				enabled = true,
 				shade = "dark",
@@ -101,4 +106,9 @@ return {
 	{ "folke/tokyonight.nvim" },
 	{ "rose-pine/neovim", name = "rose-pine" },
 	{ "yorickpeterse/nvim-grey" },
+	{ "p00f/alabaster.nvim" },
+	{ "deparr/tairiki.nvim", opts = { palette = "dimmed" } },
+	{ "nyoom-engineering/oxocarbon.nvim" },
+
+	{ "typicode/bg.nvim", lazy = false },
 }

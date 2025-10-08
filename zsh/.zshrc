@@ -1,4 +1,8 @@
-# I you come from bash you might have to change your $PATH.
+if [ -n "${GHOSTTY_RESOURCES_DIR}" ]; then
+    builtin source "${GHOSTTY_RESOURCES_DIR}/shell-integration/zsh/ghostty-integration"
+fi
+
+
 export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 . $(brew --prefix)/opt/asdf/libexec/asdf.sh
 
@@ -75,6 +79,7 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
+#
 plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
@@ -144,7 +149,6 @@ alias jwth="decode_jwt 1"
 # Decode JWT Payload
 alias jwtp="decode_jwt 2"
 
-alias f="yazi"
 export EDITOR=nvim
 
 
@@ -188,12 +192,6 @@ rmvenv() {
   fi
 }
 
-alias terraform='docker run --rm \
-  -v "$(pwd):/workspace" \
-  -w /workspace \
-  -v ~/.aws:/root/.aws:ro \
-  hashicorp/terraform:1.9'
-
 . "$HOME/.cargo/env"
 
 if command -v ngrok &>/dev/null; then
@@ -231,9 +229,7 @@ function json() {
     echo "$@" | fx
   fi
 }
-# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-#
-#
+
 # # Aliases: ls
 alias l='eza -1A --group-directories-first --color=always --git-ignore'
 alias ls='l'
@@ -259,3 +255,13 @@ alias gn='git checkout -b'  # new branch
 alias gp='git push'
 alias gr='git reset'
 alias gs='git status --short'
+
+alias k='kubectl'
+
+
+# bun completions
+[ -s "/Users/daniil.pshenik/.bun/_bun" ] && source "/Users/daniil.pshenik/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"

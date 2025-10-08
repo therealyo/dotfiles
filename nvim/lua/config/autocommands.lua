@@ -37,3 +37,5 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 		vim.api.nvim_set_hl(0, "DapLogPoint", { fg = "#61afef", bg = sign_column_bg, ctermbg = sign_column_ctermbg })
 	end,
 })
+
+vim.cmd([[ set statusline=%f%=%{&filetype} ]])

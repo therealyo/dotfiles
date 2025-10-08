@@ -1,13 +1,5 @@
 return {
 	{
-		"echasnovski/mini.files",
-		version = "*",
-		config = function()
-			require("mini.files").setup()
-			vim.keymap.set("n", "<leader>me", "<cmd>lua MiniFiles.open()<CR>")
-		end,
-	},
-	{
 		"stevearc/oil.nvim",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 		config = function()

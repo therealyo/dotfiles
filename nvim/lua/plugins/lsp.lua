@@ -83,6 +83,7 @@ return {
 			-- LSP capabilities for autocompletion
 			local capabilities = vim.lsp.protocol.make_client_capabilities()
 			capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
+			capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 			local home = vim.loop.os_homedir()
 
@@ -129,6 +130,8 @@ return {
 				},
 				pyright = {},
 				rust_analyzer = {},
+				jsonls = {},
+
 				elixirls = {
 					cmd = { home .. "/lsp/elixirls/language_server.sh" },
 					settings = {
@@ -185,6 +188,7 @@ return {
 					},
 				},
 				terraformls = {},
+				cssls = {},
 				tailwindcss = {
 					filetypes = {
 						"aspnetcorerazor",
@@ -226,6 +230,13 @@ return {
 					},
 				},
 			}
+			-- vim.lsp.config("expert", {
+			-- 	cmd = { "expert" },
+			-- 	root_markers = { "mix.exs", ".git" },
+			-- 	filetypes = { "elixir", "eelixir", "heex" },
+			-- })
+
+			-- vim.lsp.enable("expert")
 
 			-- Mason setup for managing LSPs and tools
 			require("mason").setup()
