@@ -230,13 +230,13 @@ return {
 					},
 				},
 			}
-			-- vim.lsp.config("expert", {
-			-- 	cmd = { "expert" },
-			-- 	root_markers = { "mix.exs", ".git" },
-			-- 	filetypes = { "elixir", "eelixir", "heex" },
-			-- })
+			vim.lsp.config("expert", {
+				cmd = { "expert" },
+				root_markers = { "mix.exs", ".git" },
+				filetypes = { "elixir", "eelixir", "heex" },
+			})
 
-			-- vim.lsp.enable("expert")
+			vim.lsp.enable("expert")
 
 			-- Mason setup for managing LSPs and tools
 			require("mason").setup()

@@ -4,6 +4,7 @@ fi
 
 
 export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
+export PATH="$PATH":"$HOME/.local/scripts/"
 . $(brew --prefix)/opt/asdf/libexec/asdf.sh
 
 export NVM_DIR="$HOME/.nvm"
@@ -231,7 +232,7 @@ function json() {
 }
 
 # # Aliases: ls
-alias l='eza -1A --group-directories-first --color=always --git-ignore'
+alias l='eza -1A --group-directories-first --color=always'
 alias ls='l'
 alias la='l -l --time-style="+%Y-%m-%d %H:%M" --no-permissions --octal-permissions'
 alias tree='l --tree'
@@ -265,3 +266,6 @@ alias k='kubectl'
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+
+bindkey -s ^f ". projects\n"
+

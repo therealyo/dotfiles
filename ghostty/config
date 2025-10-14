@@ -1,4 +1,4 @@
-theme = Catppuccin Frappe 
+theme = Nvim Dark 
 font-family = GeistMono NFM
 
 macos-option-as-alt = true
