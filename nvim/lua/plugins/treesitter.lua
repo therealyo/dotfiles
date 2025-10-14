@@ -95,30 +95,6 @@ return {
 		end,
 	},
 	{
-		"luckasRanarison/tailwind-tools.nvim",
-		name = "tailwind-tools",
-		build = ":UpdateRemotePlugins",
-		dependencies = {
-			"nvim-treesitter/nvim-treesitter",
-			"nvim-telescope/telescope.nvim", -- optional
-			"neovim/nvim-lspconfig", -- optional
-		},
-		opts = {
-			extension = {
-				patterns = {
-					ruby = {
-						[[class= "([^"]*)]],
-						[[class: "([^"]*)]],
-						[[class= '([^"]*)]],
-						[[class: '([^"]*)]],
-						'~H""".*class="([^"]*)".*"""',
-						'~F""".*class="([^"]*)".*"""',
-					},
-				},
-			},
-		},
-	},
-	{
 		"nvim-treesitter/nvim-treesitter-context",
 		opts = function()
 			local tsc = require("treesitter-context")

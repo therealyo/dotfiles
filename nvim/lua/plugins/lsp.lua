@@ -87,13 +87,15 @@ return {
 
 			local home = vim.loop.os_homedir()
 
+			local lsp_util = require("lspconfig.util")
+
 			-- LSP server configurations
 			local servers = {
 				yamlls = {},
 				gopls = {
 					cmd = { "gopls" },
 					filetypes = { "go", "gomod" },
-					root_dir = require("lspconfig").util.root_pattern("go.work", "go.mod", ".git"),
+					root_dir = lsp_util.root_pattern("go.work", "go.mod", ".git"),
 					settings = {
 						gopls = {
 							gofumpt = true,
@@ -198,6 +200,7 @@ return {
 						"django-html",
 						"svelte",
 						"eelixir",
+						"heex",
 						"elixir",
 						"erb",
 						"eruby",
@@ -205,8 +208,17 @@ return {
 						"javascript",
 						"ruby",
 						"typescript",
+						"html-eex",
 						"vue",
 					},
+					init_options = {
+						userLanguages = {
+							elixir = "html-eex",
+							eelixir = "html-eex",
+							heex = "html-eex",
+						},
+					},
+
 					settings = {
 						tailwindCSS = {
 							includeLanguages = {
@@ -229,14 +241,12 @@ return {
 						},
 					},
 				},
+				-- expert = {
+				-- 	cmd = { "expert" },
+				-- 	root_markers = { "mix.exs", ".git" },
+				-- 	filetypes = { "elixir", "eelixir", "heex" },
+				-- },
 			}
-			vim.lsp.config("expert", {
-				cmd = { "expert" },
-				root_markers = { "mix.exs", ".git" },
-				filetypes = { "elixir", "eelixir", "heex" },
-			})
-
-			vim.lsp.enable("expert")
 
 			-- Mason setup for managing LSPs and tools
 			require("mason").setup()
@@ -251,7 +261,8 @@ return {
 					function(server_name)
 						local server = servers[server_name] or {}
 						server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-						require("lspconfig")[server_name].setup(server)
+						vim.lsp.config(server_name, server)
+						vim.lsp.enable({ server_name })
 					end,
 				},
 			})
