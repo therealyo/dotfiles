@@ -111,4 +111,6 @@ return {
 	-- { "nyoom-engineering/oxocarbon.nvim" },
 	--
 	-- { "typicode/bg.nvim", lazy = false },
+	{ "alligator/accent.vim" },
+	{ "danilo-augusto/vim-afterglow" },
 }
