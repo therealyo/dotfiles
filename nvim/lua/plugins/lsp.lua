@@ -189,6 +189,7 @@ return {
 						},
 					},
 				},
+				html = {},
 				terraformls = {},
 				cssls = {},
 				tailwindcss = {

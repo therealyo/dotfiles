@@ -58,3 +58,27 @@ vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decr
 vim.o.foldlevelstart = 99
 vim.o.foldenable = true
 vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
+
+vim.g.accent_colour = "yellow" -- the default
+-- vim.g.accent_colour = "orange"
+-- vim.g.accent_colour = "red"
+-- vim.g.accent_colour = "green"
+-- vim.g.accent_colour = "blue"
+-- vim.g.accent_colour = "magenta"
+-- vim.g.accent_colour = "cyan"
+
+-- g:accent_darken makes the background and some text colours darker.
+vim.g.accent_darken = 0 -- the default
+-- vim.g.accent_darken = 1
+
+-- g:accent_invert_status inverts the colour of the status line text.
+-- vim.g.accent_invert_status = 0 -- the default
+vim.g.accent_invert_status = 1
+
+-- g:accent_auto_cwd_colour sets the accent colour using a hash of the current directory.
+-- vim.g.accent_auto_cwd_colour = 0 -- the default
+-- vim.g.accent_auto_cwd_colour = 1
+
+-- g:accent_no_bg stops the background colour being set, which will use the terminal default
+vim.g.accent_no_bg = 0 -- the default
+-- vim.g.accent_no_bg = 1
