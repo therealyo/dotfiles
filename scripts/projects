@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+if [[ $# -eq 1 ]]; then
+    selected=$1
+else
+    selected=$(find ~/Documents ~/dotfiles -mindepth 1 -maxdepth 3 -type d | fzf --print-query)
+fi
+
+inputs=()
+while IFS= read -r line; do inputs+=("$line"); done < <(echo "$selected")
+    
+search=$inputs[1]
+cd_to=$inputs[2]
+
+if [[ -z $cd_to ]]; then
+    cd_to="$HOME/Documents/projects/$search"
+    mkdir "$cd_to"
+    cd $cd_to
+    return 1
+fi
+
+cd $cd_to

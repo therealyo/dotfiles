@@ -269,3 +269,5 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 
 bindkey -s ^f ". projects\n"
 
+export MANPAGER='nvim +Man!'
+
