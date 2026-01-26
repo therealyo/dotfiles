@@ -2,10 +2,10 @@ return {
 	{
 		"benlubas/molten-nvim",
 		dependencies = {
-			{
-				"willothy/wezterm.nvim",
-				config = true,
-			},
+			-- {
+			-- 	"willothy/wezterm.nvim",
+			-- 	config = true,
+			-- },
 		},
 		build = ":UpdateRemotePlugins",
 		init = function()

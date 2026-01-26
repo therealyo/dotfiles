@@ -210,6 +210,9 @@ alt-shift-l = ['join-with right', 'mode main']
 # This fixes ghostty and aerospace workflow, because ghostty uses native mac tabs
 # press opt-shift-semicolon f on start of ghostty
 [[on-window-detected]]
-if.app-id = "com.mitchellh.ghostty"
-check-further-callbacks = true
-run = "layout floating"
+if.app-id="com.mitchellh.ghostty"
+run= [
+  "layout floating",
+]
+
+

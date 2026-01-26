@@ -125,9 +125,9 @@ source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 
 export PATH=$(go env GOPATH)/bin:$PATH
+export PATH=$(go env GOBIN):$PATH
 
 export GOPATH=$HOME/go
-export GOBIN=$HOME/go/bin
 
 alias ls='eza'
 
@@ -193,7 +193,8 @@ rmvenv() {
   fi
 }
 
-. "$HOME/.cargo/env"
+
+if [ -f "$HOME/.cargo/env" ]; then . "$HOME/.cargo/env"; fi
 
 if command -v ngrok &>/dev/null; then
  eval "$(ngrok completion)"
@@ -261,7 +262,7 @@ alias k='kubectl'
 
 
 # bun completions
-[ -s "/Users/daniil.pshenik/.bun/_bun" ] && source "/Users/daniil.pshenik/.bun/_bun"
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 
 # bun
 export BUN_INSTALL="$HOME/.bun"
@@ -271,3 +272,12 @@ bindkey -s ^f ". projects\n"
 
 export MANPAGER='nvim +Man!'
 
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+[[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f "$HOME/Downloads/google-cloud-sdk/path.zsh.inc" ]; then . "$HOME/Downloads/google-cloud-sdk/path.zsh.inc"; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f "$HOME/Downloads/google-cloud-sdk/completion.zsh.inc" ]; then . "$HOME/Downloads/google-cloud-sdk/completion.zsh.inc"; fi

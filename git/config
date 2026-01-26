@@ -4,6 +4,7 @@
     fsync = none
     whitespace = error  # threat incorrect whitespace as errors
     pager = delta
+    editor = nvim
     
 [advice]  # disable advices
     addEmptyPathspec = false
@@ -17,6 +18,10 @@
     coloring = highlightRecent
     date = relative
 
+[delta]
+    navigate = true  # use n and N to move between diff sections
+    dark = true      # or light = true, or omit for auto-detection
+    
 [diff]
     context = 3  # less context in diffs
     renames = copies  # detect copies as renames in diffs
@@ -86,4 +91,12 @@
 # URL shortcuts
 [url "git@github.com:"]
     insteadOf = "gh:"
-
+    
+[url "ssh://git@github.com/"]
+    insteadOf = https://github.com/
+    
+[include]
+  path = ~/.config/git/.gitconfig-private
+    
+[includeIf "gitdir:**/projects/unwired/"]
+  path = ~/.config/git/.gitconfig-unwired
