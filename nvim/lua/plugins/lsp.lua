@@ -133,15 +133,6 @@ return {
 				rust_analyzer = {},
 				jsonls = {},
 
-				-- elixirls = {
-				-- 	cmd = { home .. "/lsp/elixirls/language_server.sh" },
-				-- 	settings = {
-				-- 		dialyzerEnabled = true,
-				-- 		fetchDeps = true,
-				-- 		enableTestLenses = false,
-				-- 		suggestSpecs = true,
-				-- 	},
-				-- },
 				dockerls = {},
 				erlangls = {},
 				ruby_lsp = { enabled = true },
@@ -248,7 +239,6 @@ return {
 				},
 			}
 
-			-- Mason setup for managing LSPs and tools
 			require("mason").setup()
 
 			local ensure_installed = vim.tbl_keys(servers or {})
@@ -260,13 +250,6 @@ return {
 				vim.lsp.config(server_name, server)
 				vim.lsp.enable({ server_name })
 			end
-			-- Setup servers using Mason LSPConfig
-			-- require("mason-lspconfig").setup({
-			-- handlers = {
-			-- 	function(server_name)
-			-- end,
-			-- },
-			-- })
 		end,
 	},
 }
