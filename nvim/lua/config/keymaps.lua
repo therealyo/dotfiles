@@ -55,5 +55,23 @@ for i = 1, 9 do
 	vim.keymap.set("n", "<A-" .. i .. ">", "<cmd>" .. i .. "tabn<CR>")
 end
 
+vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]])
+
+-- vim.keymap.set("n", "<leader>z", "<cmd>:tabnew %<CR>", { desc = "Create new tab from current" })
+--
+function toggle_term()
+	vim.api.nvim_command(":13 split")
+	for i, buffer in ipairs(vim.api.nvim_list_bufs()) do
+		local buffer_name = vim.api.nvim_buf_get_name(buffer)
+		if string.sub(buffer_name, 1, 7) == "term://" then
+			vim.api.nvim_win_set_buf(0, buffer)
+			return
+		end
+	end
+	vim.api.nvim_command(":terminal")
+end
+
+vim.keymap.set("n", "<leader>t", toggle_term, { desc = "Open terminal" })
+
 -- remove s bind in visual mode for mini.surround to work
 -- vim.api.nvim_del_keymap("x", "s")

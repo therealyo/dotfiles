@@ -93,9 +93,8 @@ return {
 			local servers = {
 				yamlls = {},
 				gopls = {
-					cmd = { "gopls", "goimports" },
+					cmd = { "gopls" },
 					filetypes = { "go", "gomod" },
-					root_dir = lsp_util.root_pattern("go.work", "go.mod", ".git"),
 					settings = {
 						gopls = {
 							gofumpt = true,
@@ -124,7 +123,7 @@ return {
 								unusedwrite = true,
 								useany = true,
 							},
-							usePlaceholders = true,
+							usePlaceholders = false,
 							completeUnimported = true,
 							staticcheck = true,
 						},
@@ -256,36 +255,18 @@ return {
 			vim.list_extend(ensure_installed, { "stylua" }) -- Add stylua for Lua formatting
 			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
+			for server_name, server in pairs(servers) do
+				server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
+				vim.lsp.config(server_name, server)
+				vim.lsp.enable({ server_name })
+			end
 			-- Setup servers using Mason LSPConfig
-			require("mason-lspconfig").setup({
-				handlers = {
-					function(server_name)
-						local server = servers[server_name] or {}
-						server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-						vim.lsp.config(server_name, server)
-						vim.lsp.enable({ server_name })
-					end,
-				},
-			})
+			-- require("mason-lspconfig").setup({
+			-- handlers = {
+			-- 	function(server_name)
+			-- end,
+			-- },
+			-- })
 		end,
 	},
-	{
-		-- "ray-x/lsp_signature.nvim",
-		-- event = "InsertEnter",
-		-- opts = {
-		-- 	bind = true,
-		-- 	handler_opts = {
-		-- 		border = "rounded",
-		-- 	},
-		-- },
-		-- config = function(_, opts)
-		-- 	require("lsp_signature").setup(opts)
-		-- end,
-	},
-	-- {
-	-- 	"VidocqH/lsp-lens.nvim",
-	-- 	config = function()
-	-- 		require("lsp-lens").setup({})
-	-- 	end,
-	-- },
 }

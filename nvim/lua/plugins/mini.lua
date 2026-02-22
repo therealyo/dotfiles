@@ -15,5 +15,13 @@ return { -- Collection of various small independent plugins/modules
 		-- - sd'   - [S]urround [D]elete [']quotes
 		-- - sr)'  - [S]urround [R]eplace [)] [']
 		require("mini.surround").setup()
+		local zoom = function()
+			require("mini.misc").zoom()
+			if vim.api.nvim_win_get_config(0).relative == "" then
+				return
+			end
+			vim.wo.winhighlight = "NormalFloat:Normal"
+		end
+		vim.keymap.set("n", "<Leader>z", zoom, { desc = "Zoom" })
 	end,
 }

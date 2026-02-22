@@ -1,244 +1,94 @@
+has() { command -v "$1" >/dev/null 2>&1; }
+source_if_exists() { [ -f "$1" ] && source "$1"; }
+add_path_front() { [ -d "$1" ] && export PATH="$1:$PATH"; }
+
+case "$(uname -s)" in
+  Darwin) OS_TYPE="macos" ;;
+  Linux)  OS_TYPE="linux" ;;
+  *)      OS_TYPE="other" ;;
+esac
+
 if [ -n "${GHOSTTY_RESOURCES_DIR}" ]; then
-    builtin source "${GHOSTTY_RESOURCES_DIR}/shell-integration/zsh/ghostty-integration"
+  source_if_exists "${GHOSTTY_RESOURCES_DIR}/shell-integration/zsh/ghostty-integration"
 fi
 
+add_path_front "$HOME/bin"
+add_path_front "$HOME/.local/bin"
+add_path_front "$HOME/.local/scripts"
+add_path_front "/usr/local/bin"
 
-export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
-export PATH="$PATH":"$HOME/.local/scripts/"
-. $(brew --prefix)/opt/asdf/libexec/asdf.sh
-
-export NVM_DIR="$HOME/.nvm"
-. $HOME/.nvm/nvm.sh 
-[ -s "$(brew --prefix)/opt/nvm/nvm.sh" ] && \. "$(brew --prefix)/opt/nvm/nvm.sh"  # This loads nvm
-[ -s "$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm" ] && \. "$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
-# Path to your Oh My Zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
-
-# Set name of the theme to load --- if set to "random", it will
-# load a random theme each time Oh My Zsh is loaded, in which case,
-# to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="robbyrussell"
-
-# Set list of themes to pick from when loading at random
-# Setting this variable when ZSH_THEME=random will cause zsh to load
-# a theme from this variable instead of looking in $ZSH/themes/
-# If set to an empty array, this variable will have no effect.
-# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
-
-# Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
-
-# Uncomment the following line to use hyphen-insensitive completion.
-# Case-sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
-
-# Uncomment one of the following lines to change the auto-update behavior
-# zstyle ':omz:update' mode disabled  # disable automatic updates
-# zstyle ':omz:update' mode auto      # update automatically without asking
-# zstyle ':omz:update' mode reminder  # just remind me to update when it's time
-
-# Uncomment the following line to change how often to auto-update (in days).
-# zstyle ':omz:update' frequency 13
-
-# Uncomment the following line if pasting URLs and other text is messed up.
-# DISABLE_MAGIC_FUNCTIONS="true"
-
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
-
-# Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
-
-# Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
-
-# Uncomment the following line to display red dots whilst waiting for completion.
-# You can also set it to another string to have that shown instead of the default red dots.
-# e.g. COMPLETION_WAITING_DOTS="%F{yellow}waiting...%f"
-# Caution: this setting can cause issues with multiline prompts in zsh < 5.7.1 (see #5765)
-# COMPLETION_WAITING_DOTS="true"
-
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# You can set one of the optional three formats:
-# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# or set a custom format using the strftime function format specifications,
-# see 'man strftime' for details.
-# HIST_STAMPS="mm/dd/yyyy"
-
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
-
-# Which plugins would you like to load?
-# Standard plugins can be found in $ZSH/plugins/
-# Custom plugins may be added to $ZSH_CUSTOM/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-#
 plugins=(git)
 
-source $ZSH/oh-my-zsh.sh
+[ -d "$ZSH" ] && source "$ZSH/oh-my-zsh.sh"
 
-# User configuration
-
-# export MANPATH="/usr/local/man:$MANPATH"
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
-
-# Compilation flags
-# export ARCHFLAGS="-arch $(uname -m)"
-
-# Set personal aliases, overriding those provided by Oh My Zsh libs,
-# plugins, and themes. Aliases can be placed here, though Oh My Zsh
-# users are encouraged to define aliases within a top-level file in
-# the $ZSH_CUSTOM folder, with .zsh extension. Examples:
-# - $ZSH_CUSTOM/aliases.zsh
-# - $ZSH_CUSTOM/macos.zsh
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-export PATH="$(brew --prefix)/opt/curl/bin:$PATH"
-export PATH="$(brew --prefix)/opt/libpq/bin:$PATH"
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-source <(fzf --zsh)
-
-source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-
-
-export PATH=$(go env GOPATH)/bin:$PATH
-export PATH=$(go env GOBIN):$PATH
-
-export GOPATH=$HOME/go
-
-alias ls='eza'
-
-decode_base64_url() {
-  local len=$((${#1} % 4))
-  local result="$1"
-  if [ $len -eq 2 ]; then result="$1"'=='
-  elif [ $len -eq 3 ]; then result="$1"'=' 
-  fi
-  echo "$result" | tr '_-' '/+' | openssl enc -d -base64
-}
-
-decode_jwt(){
-   decode_base64_url $(echo -n $2 | cut -d "." -f $1) | jq .
-}
-
-# Decode JWT header
-alias jwth="decode_jwt 1"
-
-# Decode JWT Payload
-alias jwtp="decode_jwt 2"
-
-export EDITOR=nvim
-
-
-# usage
-# $ mkvenv myvirtualenv # creates venv under ~/.virtualenvs/
-# $ venv myvirtualenv   # activates venv
-# $ deactivate          # deactivates venv
-# $ rmvenv myvirtualenv # removes venv
-
-export VENV_HOME="$HOME/.virtualenvs"
-[[ -d $VENV_HOME ]] || mkdir $VENV_HOME
-
-lsvenv() {
-  ls -1 $VENV_HOME
-}
-
-venv() {
-  if [ $# -eq 0 ]
-    then
-      echo "Please provide venv name"
-    else
-      source "$VENV_HOME/$1/bin/activate"
-  fi
-}
-
-mkvenv() {
-  if [ $# -eq 0 ]
-    then
-      echo "Please provide venv name"
-    else
-      python3 -m venv $VENV_HOME/$1
-  fi
-}
-
-rmvenv() {
-  if [ $# -eq 0 ]
-    then
-      echo "Please provide venv name"
-    else
-      rm -r $VENV_HOME/$1
-  fi
-}
-
-
-if [ -f "$HOME/.cargo/env" ]; then . "$HOME/.cargo/env"; fi
-
-if command -v ngrok &>/dev/null; then
- eval "$(ngrok completion)"
+if [ -f "$HOME/.asdf/asdf.sh" ]; then
+  source "$HOME/.asdf/asdf.sh"
+elif [ -f "/opt/asdf/asdf.sh" ]; then
+  source "/opt/asdf/asdf.sh"
+elif has brew; then
+  source_if_exists "$(brew --prefix)/opt/asdf/libexec/asdf.sh"
 fi
 
-function json() {
-  # Check if fx is installed
-  if ! command -v fx &> /dev/null; then
-    echo "Error: fx is not installed. Please install it with 'npm install -g fx'"
-    return 1
-  fi
+export PATH="$HOME/.asdf/shims:$PATH"
 
-  # If no arguments are provided, get input from clipboard
-  if [ $# -eq 0 ]; then
-    # Check for different clipboard commands based on OS
-    if command -v pbpaste &> /dev/null; then
-      # macOS
-      pbpaste | fx
-    elif command -v xclip &> /dev/null; then
-      # Linux with xclip
-      xclip -selection clipboard -o | fx
-    elif command -v wl-paste &> /dev/null; then
-      # Linux with Wayland
-      wl-paste | fx
-    elif command -v powershell.exe &> /dev/null; then
-      # Windows with WSL
-      powershell.exe Get-Clipboard | fx
-    else
-      echo "Error: No clipboard command found. Please install xclip, wl-paste, or use macOS/WSL."
-      return 1
-    fi
-  else
-    # If arguments are provided, use them as input
-    echo "$@" | fx
-  fi
-}
+export NVM_DIR="$HOME/.nvm"
+source_if_exists "$NVM_DIR/nvm.sh"
+source_if_exists "$NVM_DIR/bash_completion"
 
-# # Aliases: ls
-alias l='eza -1A --group-directories-first --color=always'
-alias ls='l'
-alias la='l -l --time-style="+%Y-%m-%d %H:%M" --no-permissions --octal-permissions'
-alias tree='l --tree'
+if has brew; then
+  source_if_exists "$(brew --prefix)/opt/nvm/nvm.sh"
+  source_if_exists "$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm"
+fi
 
-# Aliases: git
+source_if_exists "$HOME/.fzf.zsh"
+has fzf && source <(fzf --zsh 2>/dev/null) 2>/dev/null
+
+source_if_exists "$ZSH/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+source_if_exists "$ZSH/custom/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"
+source_if_exists "/usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+source_if_exists "/usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+
+if has brew; then
+  source_if_exists "$(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+  source_if_exists "$(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+fi
+
+export EDITOR=nvim
+export MANPAGER='nvim +Man!'
+
+if has go; then
+  add_path_front "$(go env GOPATH)/bin"
+  GOBIN_DIR="$(go env GOBIN 2>/dev/null)"
+  [ -n "$GOBIN_DIR" ] && add_path_front "$GOBIN_DIR"
+fi
+
+source_if_exists "$HOME/.cargo/env"
+
+export BUN_INSTALL="$HOME/.bun"
+add_path_front "$BUN_INSTALL/bin"
+source_if_exists "$HOME/.bun/_bun"
+
+source_if_exists "$HOME/.gvm/scripts/gvm"
+
+source_if_exists "$HOME/Downloads/google-cloud-sdk/path.zsh.inc"
+source_if_exists "$HOME/Downloads/google-cloud-sdk/completion.zsh.inc"
+source_if_exists "$HOME/google-cloud-sdk/path.zsh.inc"
+source_if_exists "$HOME/google-cloud-sdk/completion.zsh.inc"
+
+if has brew; then
+  add_path_front "$(brew --prefix)/opt/curl/bin"
+  add_path_front "$(brew --prefix)/opt/libpq/bin"
+fi
+
+if has eza; then
+  alias l='eza -1A --group-directories-first --color=always'
+  alias ls='l'
+  alias la='l -l --time-style="+%Y-%m-%d %H:%M" --no-permissions --octal-permissions'
+  alias tree='l --tree'
+fi
+
 alias ga='git add'
 alias gap='ga --patch'
 alias gb='git branch'
@@ -253,31 +103,68 @@ alias gds='gd --staged'
 alias gi='git init'
 alias glog='git log --graph --all --pretty=format:"%C(magenta)%h %C(white) %an  %ar%C(blue)  %D%n%s%n"'
 alias gm='git merge'
-alias gn='git checkout -b'  # new branch
+alias gn='git checkout -b'
 alias gp='git push'
 alias gr='git reset'
 alias gs='git status --short'
-
 alias k='kubectl'
 
+decode_base64_url() {
+  local len=$((${#1} % 4))
+  local result="$1"
+  [ $len -eq 2 ] && result="$1=="
+  [ $len -eq 3 ] && result="$1="
+  echo "$result" | tr '_-' '/+' | openssl enc -d -base64
+}
 
-# bun completions
-[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
+decode_jwt() {
+  decode_base64_url "$(echo -n "$2" | cut -d "." -f "$1")" | jq .
+}
 
-# bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
+alias jwth="decode_jwt 1"
+alias jwtp="decode_jwt 2"
+
+export VENV_HOME="$HOME/.virtualenvs"
+mkdir -p "$VENV_HOME"
+
+lsvenv() { ls -1 "$VENV_HOME"; }
+
+venv() {
+  [ $# -eq 0 ] && echo "Please provide venv name" || source "$VENV_HOME/$1/bin/activate"
+}
+
+mkvenv() {
+  [ $# -eq 0 ] && echo "Please provide venv name" || python3 -m venv "$VENV_HOME/$1"
+}
+
+rmvenv() {
+  [ $# -eq 0 ] && echo "Please provide venv name" || rm -r "$VENV_HOME/$1"
+}
+
+json() {
+  has fx || { echo "fx not installed"; return 1; }
+
+  if [ $# -eq 0 ]; then
+    has pbpaste && pbpaste | fx ||
+    has xclip && xclip -selection clipboard -o | fx ||
+    has wl-paste && wl-paste | fx ||
+    has powershell.exe && powershell.exe Get-Clipboard | fx ||
+    echo "No clipboard provider"
+  else
+    echo "$@" | fx
+  fi
+}
+
+has ngrok && eval "$(ngrok completion)"
 
 bindkey -s ^f ". projects\n"
 
-export MANPAGER='nvim +Man!'
+if [ -f /usr/share/doc/fzf/examples/key-bindings.zsh ]; then
+  source /usr/share/doc/fzf/examples/key-bindings.zsh
+fi
+if [ -f /usr/share/doc/fzf/examples/completion.zsh ]; then
+  source /usr/share/doc/fzf/examples/completion.zsh
+fi
 
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-[[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f "$HOME/Downloads/google-cloud-sdk/path.zsh.inc" ]; then . "$HOME/Downloads/google-cloud-sdk/path.zsh.inc"; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f "$HOME/Downloads/google-cloud-sdk/completion.zsh.inc" ]; then . "$HOME/Downloads/google-cloud-sdk/completion.zsh.inc"; fi
+fpath=(${ASDF_DATA_DIR:-$HOME/.asdf}/completions $fpath)
+autoload -Uz compinit && compinit
