@@ -133,15 +133,15 @@ return {
 				rust_analyzer = {},
 				jsonls = {},
 
-				elixirls = {
-					cmd = { home .. "/lsp/elixirls/language_server.sh" },
-					settings = {
-						dialyzerEnabled = true,
-						fetchDeps = true,
-						enableTestLenses = false,
-						suggestSpecs = true,
-					},
-				},
+				-- elixirls = {
+				-- 	cmd = { home .. "/lsp/elixirls/language_server.sh" },
+				-- 	settings = {
+				-- 		dialyzerEnabled = true,
+				-- 		fetchDeps = true,
+				-- 		enableTestLenses = false,
+				-- 		suggestSpecs = true,
+				-- 	},
+				-- },
 				dockerls = {},
 				erlangls = {},
 				ruby_lsp = { enabled = true },
@@ -241,11 +241,11 @@ return {
 						},
 					},
 				},
-				-- expert = {
-				-- 	cmd = { "expert" },
-				-- 	root_markers = { "mix.exs", ".git" },
-				-- 	filetypes = { "elixir", "eelixir", "heex" },
-				-- },
+				expert = {
+					cmd = { "expert" },
+					root_markers = { "mix.exs", ".git" },
+					filetypes = { "elixir", "eelixir", "heex" },
+				},
 			}
 
 			-- Mason setup for managing LSPs and tools
