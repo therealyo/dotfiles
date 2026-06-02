@@ -62,3 +62,10 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 		vim.lsp.buf.format({ async = false })
 	end,
 })
+
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = { "elixir", "heex" },
+	callback = function()
+		vim.treesitter.start()
+	end,
+})

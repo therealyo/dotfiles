@@ -151,6 +151,7 @@ return {
 						},
 					},
 				},
+				zls = {},
 				emmet_ls = {
 					filetypes = {
 						"astro",
@@ -183,33 +184,6 @@ return {
 				terraformls = {},
 				cssls = {},
 				tailwindcss = {
-					filetypes = {
-						"aspnetcorerazor",
-						"astro",
-						"blade",
-						"clojure",
-						"django-html",
-						"svelte",
-						"eelixir",
-						"heex",
-						"elixir",
-						"erb",
-						"eruby",
-						"html",
-						"javascript",
-						"ruby",
-						"typescript",
-						"html-eex",
-						"vue",
-					},
-					init_options = {
-						userLanguages = {
-							elixir = "html-eex",
-							eelixir = "html-eex",
-							heex = "html-eex",
-						},
-					},
-
 					settings = {
 						tailwindCSS = {
 							includeLanguages = {
@@ -233,7 +207,7 @@ return {
 					},
 				},
 				expert = {
-					cmd = { "expert" },
+					cmd = { "expert", "--stdio" },
 					root_markers = { "mix.exs", ".git" },
 					filetypes = { "elixir", "eelixir", "heex" },
 				},

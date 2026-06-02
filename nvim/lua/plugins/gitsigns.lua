@@ -17,8 +17,6 @@ return {
 			changedelete = { text = " ▎" },
 		},
 		on_attach = function(bufnr)
-			local gs = package.loaded.gitsigns
-
 			-- Define GitSigns keybindings with descriptions
 			local map = function(mode, lhs, rhs, desc)
 				vim.api.nvim_buf_set_keymap(bufnr, mode, lhs, rhs, { noremap = true, silent = true, desc = desc })

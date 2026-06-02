@@ -5,6 +5,7 @@
     whitespace = error  # threat incorrect whitespace as errors
     pager = delta
     editor = nvim
+	excludesfile = /Users/daniilpshenik/.gitignore
     
 [advice]  
     addEmptyPathspec = false
@@ -96,10 +97,11 @@
 [url "ssh://git@github.com/"]
 	insteadOf = https://github.com/
     
-    
 [include]
   path = ~/.config/git/.gitconfig-private
     
 [includeIf "gitdir:**/projects/unwired/"]
   path = ~/.config/git/.gitconfig-unwired
   
+[rerere]
+	enabled = true
