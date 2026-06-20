@@ -5,7 +5,6 @@ return {
 		dependencies = {
 			"nvim-neotest/nvim-nio",
 			"nvim-lua/plenary.nvim",
-			"nvim-treesitter/nvim-treesitter",
 			"antoinemadec/FixCursorHold.nvim",
 
 			-- Adapters
@@ -14,6 +13,7 @@ return {
 			"olimorris/neotest-rspec",
 			"olimorris/neotest-phpunit",
 			"jfpedroza/neotest-elixir",
+			"lawrence-laz/neotest-zig",
 		},
 		keys = {
 			{
@@ -94,6 +94,11 @@ return {
 
 					require("neotest-rspec"),
 					require("neotest-phpunit"),
+					require("neotest-zig")({
+						dap = {
+							adapter = "lldb",
+						},
+					}),
 				},
 				-- consumers = {
 				-- 	overseer = require("neotest.consumers.overseer"),

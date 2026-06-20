@@ -214,5 +214,3 @@ if.app-id="com.mitchellh.ghostty"
 run= [
   "layout floating",
 ]
-
-
