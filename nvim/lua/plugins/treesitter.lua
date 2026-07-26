@@ -2,9 +2,17 @@ return {
 	{
 		"nvim-treesitter/nvim-treesitter",
 		build = ":TSUpdate",
+		branch = "main",
+		lazy = false,
 		-- dependencies = { "nvim-ts-autotag" },
-		opts = {
-			ensure_installed = {
+		config = function()
+			require("nvim-treesitter").setup()
+
+			-- On the `main` branch this list is not consumed by setup(); we must
+			-- install parsers explicitly. Highlight/indent are also NOT auto-enabled
+			-- here — that happens via the FileType autocmd in config/autocommands.lua
+			-- (vim.treesitter.start), which is what makes context_commentstring work.
+			require("nvim-treesitter").install({
 				"bash",
 				"c",
 				"diff",
@@ -34,61 +42,6 @@ return {
 				"python",
 				"javascript",
 				"svelte",
-			},
-			-- Autoinstall languages that are not installed
-			auto_install = true,
-			highlight = {
-				enable = true,
-				additional_vim_regex_highlighting = { "ruby" },
-			},
-			textobjects = {
-				move = {
-					enable = true,
-					set_jumps = false,
-					goto_next_start = {
-						["]b"] = { query = "@code_cell.inner", desc = "next code block" },
-					},
-					goto_previous_start = {
-						["[b"] = { query = "@code_cell.inner", desc = "previous code block" },
-					},
-				},
-				select = {
-					enable = true,
-					lookahead = true,
-					keymaps = {
-						["ib"] = { query = "@code_cell.inner", desc = "in block" },
-						["ab"] = { query = "@code_cell.outer", desc = "around block" },
-					},
-				},
-				swap = {
-					enable = true,
-					swap_next = {
-
-						["<leader>sbl"] = "@code_cell.outer",
-					},
-					swap_previous = {
-						["<leader>sbh"] = "@code_cell.outer",
-					},
-				},
-			},
-
-			context_commentstring = {
-				enable = true,
-				enable_autocmd = false,
-			},
-
-			indent = { enable = true, disable = { "ruby", "yaml" } },
-		},
-	},
-	{
-		"RRethy/nvim-treesitter-endwise",
-		event = "InsertEnter",
-		requires = { "nvim-treesitter/nvim-treesitter" },
-		config = function()
-			require("nvim-treesitter.configs").setup({
-				endwise = {
-					enable = true,
-				},
 			})
 		end,
 	},

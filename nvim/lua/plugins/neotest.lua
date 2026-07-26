@@ -13,7 +13,8 @@ return {
 			"olimorris/neotest-rspec",
 			"olimorris/neotest-phpunit",
 			"jfpedroza/neotest-elixir",
-			"lawrence-laz/neotest-zig",
+			-- { "therealyo/neotest-zig", branch = "zig_0_15" },
+			{ dir = "~/Documents/projects/neotest-zig" },
 		},
 		keys = {
 			{

@@ -12,3 +12,5 @@ require("config.lazy")
 
 -- Colorscheme
 require("config.colorscheme")
+
+vim.lsp.log.set_level("debug")

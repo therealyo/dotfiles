@@ -151,7 +151,12 @@ return {
 						},
 					},
 				},
-				zls = {},
+				zls = {
+					settings = {
+						enable_build_on_save = true,
+						build_on_save_args = "check",
+					},
+				},
 				emmet_ls = {
 					filetypes = {
 						"astro",
@@ -194,7 +199,7 @@ return {
 							},
 							experimental = {
 								classRegex = {
-									[[class:\s*["']([^"']*)["']],
+									[==[class:\s*["']([^"']*)["']]==],
 									[[class= "([^"]*)]],
 									[[class: "([^"]*)]],
 									[[class= '([^']*)]],
