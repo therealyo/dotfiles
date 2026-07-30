@@ -168,7 +168,12 @@ fi
 
 fpath=(${ASDF_DATA_DIR:-$HOME/.asdf}/completions $fpath)
 autoload -Uz compinit && compinit
+
 # opencode
 export PATH=~/.opencode/bin:$PATH
-
+# wtp
 eval "$(wtp hook bash)"
+eval "$(wtp shell-init zsh)"
+
+# direnv
+eval "$(direnv hook zsh)"
