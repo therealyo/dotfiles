@@ -138,6 +138,7 @@ return {
 				ruby_lsp = { enabled = true },
 				ts_ls = {},
 				eslint = {},
+				phpactor = {},
 				svelte = {},
 				golangci_lint_ls = {
 					init_options = {
