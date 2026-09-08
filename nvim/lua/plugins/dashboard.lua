@@ -1,7 +1,7 @@
 return {
 	"nvimdev/dashboard-nvim",
-	lazy = false,
-	opts = function()
+
+	config = function()
 		local logo = [[
 	    ██╗     ██████╗  ███╗   ███╗ ███╗   ███╗
 	    ██║    ██╔════╝  ████╗ ████║ ████╗ ████║
@@ -81,9 +81,9 @@ return {
 					},
 				},
 				footer = function()
-					local stats = require("lazy").stats()
-					local ms = (math.floor(stats.startuptime * 100 + 0.5) / 100)
-					return { "⚡ Neovim loaded " .. stats.loaded .. "/" .. stats.count .. " plugins in " .. ms .. "ms" }
+					local count = #vim.pack.get(nil, { info = false })
+					local ms = math.floor((vim.uv.hrtime() - _G.NVIM_STARTED_AT) / 1e6 + 0.5)
+					return { "⚡ Neovim loaded " .. count .. " plugins in " .. ms .. "ms" }
 				end,
 			},
 		}
@@ -93,18 +93,6 @@ return {
 			button.key_format = "  %s"
 		end
 
-		if vim.o.filetype == "lazy" then
-			vim.api.nvim_create_autocmd("WinClosed", {
-				pattern = tostring(vim.api.nvim_get_current_win()),
-				once = true,
-				callback = function()
-					vim.schedule(function()
-						vim.api.nvim_exec_autocmds("UIEnter", { group = "dashboard" })
-					end)
-				end,
-			})
-		end
-
-		return opts
+		require("dashboard").setup(opts)
 	end,
 }
