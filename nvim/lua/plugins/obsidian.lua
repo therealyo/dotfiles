@@ -1,28 +1,26 @@
 local vault_default_name = "therealyo"
+local vault_path = "~/vaults/" .. vault_default_name
+
 return {
-	"epwalsh/obsidian.nvim",
-	version = "*", -- recommended, use latest release instead of latest commit
-	lazy = true,
-	ft = "markdown",
-	-- Replace the above line with this if you only want to load obsidian.nvim for markdown files in your vault:
-	event = {
-		-- If you want to use the home shortcut '~' here you need to call 'vim.fn.expand'.
-		-- E.g.
-		"BufReadPre "
-			.. vim.fn.expand("~")
-			.. "/"
-			.. vault_default_name
-			.. "/*.md",
-	},
-	dependencies = {
-		"nvim-lua/plenary.nvim",
-	},
-	opts = {
-		workspaces = {
-			{
-				name = "personal",
-				path = "~/vaults/" .. vault_default_name,
+	-- `version` follows the latest release instead of the default branch.
+	{ src = "epwalsh/obsidian.nvim", version = vim.version.range("*") },
+	"nvim-lua/plenary.nvim",
+
+	config = function()
+		-- setup() reads the workspace from disk and throws if it is missing.
+		-- Under lazy.nvim this only ran on opening a note, so skip it when
+		-- there is no vault on this machine.
+		if vim.fn.isdirectory(vim.fn.expand(vault_path)) == 0 then
+			return
+		end
+
+		require("obsidian").setup({
+			workspaces = {
+				{
+					name = "personal",
+					path = vault_path,
+				},
 			},
-		},
-	},
+		})
+	end,
 }

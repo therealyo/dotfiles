@@ -1,11 +1,10 @@
 return {
 	-- "akinsho/bufferline.nvim",
-	-- event = "VeryLazy",
-	-- keys = {
-	-- 	{ "[b", "<cmd>BufferLineCyclePrev<cr>", desc = "Prev Buffer" },
-	-- 	{ "]b", "<cmd>BufferLineCycleNext<cr>", desc = "Next Buffer" },
-	-- },
+	--
 	-- config = function()
+	-- 	vim.keymap.set("n", "[b", "<cmd>BufferLineCyclePrev<cr>", { desc = "Prev Buffer" })
+	-- 	vim.keymap.set("n", "]b", "<cmd>BufferLineCycleNext<cr>", { desc = "Next Buffer" })
+	--
 	-- 	vim.api.nvim_create_autocmd({ "BufAdd", "BufDelete" }, {
 	-- 		callback = function()
 	-- 			vim.schedule(function()
@@ -20,11 +19,11 @@ return {
 	-- 			right_mouse_command = "bp|sp|bn|bd! %d",
 	-- 			left_mouse_command = "buffer %d",
 	-- 			buffer_close_icon = "x",
-	-- 			modified_icon = "",
+	-- 			modified_icon = "",
 	-- 			close_icon = "x",
 	-- 			show_close_icon = true,
-	-- 			left_trunc_marker = "",
-	-- 			right_trunc_marker = "",
+	-- 			left_trunc_marker = "",
+	-- 			right_trunc_marker = "",
 	-- 			max_name_length = 14,
 	-- 			max_prefix_length = 13,
 	-- 			tab_size = 10,

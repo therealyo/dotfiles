@@ -1,91 +1,88 @@
 return {
-	{
-		"mfussenegger/nvim-dap",
-		dependencies = {
-			"leoluz/nvim-dap-go",
-			"rcarriga/nvim-dap-ui",
-			"theHamsta/nvim-dap-virtual-text",
-			"nvim-neotest/nvim-nio",
-			"williamboman/mason.nvim",
-		},
-		config = function()
-			local dap = require("dap")
-			local ui = require("dapui")
+	"mfussenegger/nvim-dap",
+	"leoluz/nvim-dap-go",
+	"rcarriga/nvim-dap-ui",
+	"theHamsta/nvim-dap-virtual-text",
+	"nvim-neotest/nvim-nio",
+	"williamboman/mason.nvim",
 
-			require("dapui").setup()
-			require("dap-go").setup()
+	config = function()
+		local dap = require("dap")
+		local ui = require("dapui")
 
-			require("nvim-dap-virtual-text").setup({})
+		require("dapui").setup()
+		require("dap-go").setup()
 
-			local elixir_ls_debugger = vim.fn.exepath("elixir-ls-debugger")
-			if elixir_ls_debugger ~= "" then
-				dap.adapters.mix_task = {
-					type = "executable",
-					command = elixir_ls_debugger,
-				}
+		require("nvim-dap-virtual-text").setup({})
 
-				dap.configurations.elixir = {
-					{
-						type = "mix_task",
-						name = "phoenix server",
-						task = "phx.server",
-						request = "launch",
-						projectDir = "${workspaceFolder}",
-						exitAfterTaskReturns = false,
-						debugAutoInterpretAllModules = false,
-					},
-				}
-			end
+		local elixir_ls_debugger = vim.fn.exepath("elixir-ls-debugger")
+		if elixir_ls_debugger ~= "" then
+			dap.adapters.mix_task = {
+				type = "executable",
+				command = elixir_ls_debugger,
+			}
 
-			-- UI
-			vim.keymap.set("n", "<leader>b", dap.toggle_breakpoint, { desc = "Toggle [B]reakpoint" })
-			vim.keymap.set("n", "<leader>gb", dap.run_to_cursor, { desc = "Go To [B]reakpoint" })
+			dap.configurations.elixir = {
+				{
+					type = "mix_task",
+					name = "phoenix server",
+					task = "phx.server",
+					request = "launch",
+					projectDir = "${workspaceFolder}",
+					exitAfterTaskReturns = false,
+					debugAutoInterpretAllModules = false,
+				},
+			}
+		end
 
-			-- Eval var under cursor
-			vim.keymap.set("n", "<leader>?", function()
-				require("dapui").eval(nil, { enter = true })
-			end, { desc = "Eval var under cursor" })
+		-- UI
+		vim.keymap.set("n", "<leader>b", dap.toggle_breakpoint, { desc = "Toggle [B]reakpoint" })
+		vim.keymap.set("n", "<leader>gb", dap.run_to_cursor, { desc = "Go To [B]reakpoint" })
 
-			vim.keymap.set("n", "<F1>", dap.continue, { desc = "Dap Continue" })
-			vim.keymap.set("n", "<F2>", dap.step_into, { desc = "Dap Step Into" })
-			vim.keymap.set("n", "<F3>", dap.step_over, { desc = "Dap Step Over" })
-			vim.keymap.set("n", "<F4>", dap.step_out, { desc = "Dap Step Out" })
-			vim.keymap.set("n", "<F5>", dap.step_back, { desc = "Dap Step Back" })
-			vim.keymap.set("n", "<F13>", dap.restart, { desc = "Dap Restart" })
+		-- Eval var under cursor
+		vim.keymap.set("n", "<leader>?", function()
+			require("dapui").eval(nil, { enter = true })
+		end, { desc = "Eval var under cursor" })
 
-			dap.listeners.before.attach.dapui_config = function()
-				ui.open()
-			end
-			dap.listeners.before.launch.dapui_config = function()
-				ui.open()
-			end
-			dap.listeners.before.event_terminated.dapui_config = function()
-				ui.close()
-			end
-			dap.listeners.before.event_exited.dapui_config = function()
-				ui.close()
-			end
+		vim.keymap.set("n", "<F1>", dap.continue, { desc = "Dap Continue" })
+		vim.keymap.set("n", "<F2>", dap.step_into, { desc = "Dap Step Into" })
+		vim.keymap.set("n", "<F3>", dap.step_over, { desc = "Dap Step Over" })
+		vim.keymap.set("n", "<F4>", dap.step_out, { desc = "Dap Step Out" })
+		vim.keymap.set("n", "<F5>", dap.step_back, { desc = "Dap Step Back" })
+		vim.keymap.set("n", "<F13>", dap.restart, { desc = "Dap Restart" })
 
-			vim.fn.sign_define(
-				"DapBreakpoint",
-				{ text = "", texthl = "DapBreakpoint", linehl = "DapBreakpoint", numhl = "DapBreakpoint" }
-			)
-			vim.fn.sign_define(
-				"DapBreakpointCondition",
-				{ text = "ﳁ", texthl = "DapBreakpoint", linehl = "DapBreakpoint", numhl = "DapBreakpoint" }
-			)
-			vim.fn.sign_define(
-				"DapBreakpointRejected",
-				{ text = "", texthl = "DapBreakpoint", linehl = "DapBreakpoint", numhl = "DapBreakpoint" }
-			)
-			vim.fn.sign_define(
-				"DapLogPoint",
-				{ text = "", texthl = "DapLogPoint", linehl = "DapLogPoint", numhl = "DapLogPoint" }
-			)
-			vim.fn.sign_define(
-				"DapStopped",
-				{ text = "", texthl = "DapStopped", linehl = "DapStopped", numhl = "DapStopped" }
-			)
-		end,
-	},
+		dap.listeners.before.attach.dapui_config = function()
+			ui.open()
+		end
+		dap.listeners.before.launch.dapui_config = function()
+			ui.open()
+		end
+		dap.listeners.before.event_terminated.dapui_config = function()
+			ui.close()
+		end
+		dap.listeners.before.event_exited.dapui_config = function()
+			ui.close()
+		end
+
+		vim.fn.sign_define(
+			"DapBreakpoint",
+			{ text = "", texthl = "DapBreakpoint", linehl = "DapBreakpoint", numhl = "DapBreakpoint" }
+		)
+		vim.fn.sign_define(
+			"DapBreakpointCondition",
+			{ text = "ﳁ", texthl = "DapBreakpoint", linehl = "DapBreakpoint", numhl = "DapBreakpoint" }
+		)
+		vim.fn.sign_define(
+			"DapBreakpointRejected",
+			{ text = "", texthl = "DapBreakpoint", linehl = "DapBreakpoint", numhl = "DapBreakpoint" }
+		)
+		vim.fn.sign_define(
+			"DapLogPoint",
+			{ text = "", texthl = "DapLogPoint", linehl = "DapLogPoint", numhl = "DapLogPoint" }
+		)
+		vim.fn.sign_define(
+			"DapStopped",
+			{ text = "", texthl = "DapStopped", linehl = "DapStopped", numhl = "DapStopped" }
+		)
+	end,
 }

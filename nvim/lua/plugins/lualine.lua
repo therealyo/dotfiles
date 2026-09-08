@@ -1,9 +1,12 @@
 return {
 	-- "nvim-lualine/lualine.nvim",
+	--
+	-- config = function()
+	-- 	require("lualine").setup({
 	-- 		options = {
 	-- 			theme = "catpuccin-frappe",
-	-- 			section_separators = { left = "", right = "" },
-	-- 			component_separators = { left = "", right = "" },
+	-- 			section_separators = { left = "", right = "" },
+	-- 			component_separators = { left = "", right = "" },
 	-- 		},
 	-- 		sections = {
 	-- 			lualine_a = { "mode" },
@@ -14,7 +17,8 @@ return {
 	-- 					fmt = function()
 	-- 						local reg = vim.fn.reg_recording()
 	-- 						if reg ~= "" then
-	-- 							return"Recording @" .. reg
+	-- 							return "Recording @" .. reg
+	-- 						end
 	-- 					end,
 	-- 					color = { fg = "#ff9e64" },
 	-- 					draw_empty = false,

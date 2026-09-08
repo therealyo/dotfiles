@@ -1,6 +1,6 @@
 return {
 	"petertriho/nvim-scrollbar",
-	event = "BufReadPre",
+
 	config = function()
 		-- Load Catppuccin Frappe colors
 		-- local colors = require("catppuccin.palettes").get_palette("frappe")

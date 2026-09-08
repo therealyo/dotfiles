@@ -1,3 +1,6 @@
+-- Used by the dashboard footer to report startup time.
+_G.NVIM_STARTED_AT = vim.uv.hrtime()
+
 -- keymaps
 require("config.keymaps")
 
@@ -8,7 +11,7 @@ require("config.autocommands")
 require("config.options")
 
 -- Plugins
-require("config.lazy")
+require("config.pack")
 
 -- Colorscheme
 require("config.colorscheme")

@@ -1,235 +1,229 @@
+-- Main LSP Configuration
 return {
-	-- Main LSP Configuration
-	{
-		"neovim/nvim-lspconfig",
-		dependencies = {
-			-- Automatically install LSPs and related tools to stdpath for Neovim
-			{ "williamboman/mason.nvim", config = true }, -- NOTE: Must be loaded before dependants
-			"williamboman/mason-lspconfig.nvim",
-			"WhoIsSethDaniel/mason-tool-installer.nvim",
+	"neovim/nvim-lspconfig",
 
-			-- Useful status updates for LSP.
-			-- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-			{ "j-hui/fidget.nvim", opts = {} },
+	-- Automatically install LSPs and related tools to stdpath for Neovim
+	"williamboman/mason.nvim",
+	"williamboman/mason-lspconfig.nvim",
+	"WhoIsSethDaniel/mason-tool-installer.nvim",
 
-			-- Allows extra capabilities provided by nvim-cmp
-			"hrsh7th/cmp-nvim-lsp",
-		},
-		config = function()
-			vim.diagnostic.config({
-				virtual_text = true,
-			})
-			-- Callback function for LSP events
-			vim.api.nvim_create_autocmd("LspAttach", {
-				group = vim.api.nvim_create_augroup("kickstart-lsp-attach", { clear = true }),
-				callback = function(event)
-					local map = function(keys, func, desc, mode)
-						mode = mode or "n"
-						vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
-					end
+	-- Useful status updates for LSP.
+	"j-hui/fidget.nvim",
 
-					local rename = function()
-						vim.lsp.buf.rename()
-						-- save all buffers after rename
-						vim.cmd("silent! wa")
-					end
+	-- Allows extra capabilities provided by nvim-cmp
+	"hrsh7th/cmp-nvim-lsp",
 
-					-- LSP Keybindings
-					map("gd", require("telescope.builtin").lsp_definitions, "[G]oto [D]efinition")
-					map("gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
-					map("gI", require("telescope.builtin").lsp_implementations, "[G]oto [I]mplementation")
-					map("<leader>D", require("telescope.builtin").lsp_type_definitions, "Type [D]efinition")
-					map("<leader>ds", require("telescope.builtin").lsp_document_symbols, "[D]ocument [S]ymbols")
-					map("<leader>rn", rename, "[R]e[n]ame")
-					map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction", { "n", "x" })
-					map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
+	config = function()
+		require("fidget").setup({})
 
-					local client = vim.lsp.get_client_by_id(event.data.client_id)
-					if client then
-						client.server_capabilities.semanticTokensProvider = nil
-					end
+		vim.diagnostic.config({
+			virtual_text = true,
+		})
+		-- Callback function for LSP events
+		vim.api.nvim_create_autocmd("LspAttach", {
+			group = vim.api.nvim_create_augroup("kickstart-lsp-attach", { clear = true }),
+			callback = function(event)
+				local map = function(keys, func, desc, mode)
+					mode = mode or "n"
+					vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
+				end
 
-					if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
-						local highlight_augroup =
-							vim.api.nvim_create_augroup("kickstart-lsp-highlight", { clear = false })
-						vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
-							buffer = event.buf,
-							group = highlight_augroup,
-							callback = vim.lsp.buf.document_highlight,
-						})
-						vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
-							buffer = event.buf,
-							group = highlight_augroup,
-							callback = vim.lsp.buf.clear_references,
-						})
-						vim.api.nvim_create_autocmd("LspDetach", {
-							group = vim.api.nvim_create_augroup("kickstart-lsp-detach", { clear = true }),
-							callback = function(event2)
-								vim.lsp.buf.clear_references()
-								vim.api.nvim_clear_autocmds({ group = "kickstart-lsp-highlight", buffer = event2.buf })
-							end,
-						})
-					end
+				local rename = function()
+					vim.lsp.buf.rename()
+					-- save all buffers after rename
+					vim.cmd("silent! wa")
+				end
 
-					-- Inlay Hints toggle if supported
-					if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
-						map("<leader>th", function()
-							vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
-						end, "[T]oggle Inlay [H]ints")
-					end
-				end,
-			})
+				-- LSP Keybindings
+				map("gd", require("telescope.builtin").lsp_definitions, "[G]oto [D]efinition")
+				map("gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
+				map("gI", require("telescope.builtin").lsp_implementations, "[G]oto [I]mplementation")
+				map("<leader>D", require("telescope.builtin").lsp_type_definitions, "Type [D]efinition")
+				map("<leader>ds", require("telescope.builtin").lsp_document_symbols, "[D]ocument [S]ymbols")
+				map("<leader>rn", rename, "[R]e[n]ame")
+				map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction", { "n", "x" })
+				map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
 
-			-- LSP capabilities for autocompletion
-			local capabilities = vim.lsp.protocol.make_client_capabilities()
-			capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
-			capabilities.textDocument.completion.completionItem.snippetSupport = true
+				local client = vim.lsp.get_client_by_id(event.data.client_id)
+				if client then
+					client.server_capabilities.semanticTokensProvider = nil
+				end
 
-			local home = vim.loop.os_homedir()
+				if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
+					local highlight_augroup = vim.api.nvim_create_augroup("kickstart-lsp-highlight", { clear = false })
+					vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+						buffer = event.buf,
+						group = highlight_augroup,
+						callback = vim.lsp.buf.document_highlight,
+					})
+					vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
+						buffer = event.buf,
+						group = highlight_augroup,
+						callback = vim.lsp.buf.clear_references,
+					})
+					vim.api.nvim_create_autocmd("LspDetach", {
+						group = vim.api.nvim_create_augroup("kickstart-lsp-detach", { clear = true }),
+						callback = function(event2)
+							vim.lsp.buf.clear_references()
+							vim.api.nvim_clear_autocmds({ group = "kickstart-lsp-highlight", buffer = event2.buf })
+						end,
+					})
+				end
 
-			local lsp_util = require("lspconfig.util")
+				-- Inlay Hints toggle if supported
+				if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
+					map("<leader>th", function()
+						vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
+					end, "[T]oggle Inlay [H]ints")
+				end
+			end,
+		})
 
-			-- LSP server configurations
-			local servers = {
-				yamlls = {},
-				gopls = {
-					cmd = { "gopls" },
-					filetypes = { "go", "gomod" },
-					settings = {
-						gopls = {
-							gofumpt = true,
-							codelenses = {
-								gc_details = false,
-								generate = true,
-								regenerate_cgo = true,
-								run_govulncheck = true,
-								test = true,
-								tidy = true,
-								upgrade_dependency = true,
-								vendor = true,
-							},
-							hints = {
-								assignVariableTypes = true,
-								compositeLiteralFields = true,
-								compositeLiteralTypes = true,
-								constantValues = true,
-								functionTypeParameters = true,
-								parameterNames = true,
-								rangeVariableTypes = true,
-							},
-							analyses = {
-								nilness = true,
-								unusedparams = true,
-								unusedwrite = true,
-								useany = true,
-							},
-							usePlaceholders = false,
-							completeUnimported = true,
-							staticcheck = true,
+		-- LSP capabilities for autocompletion
+		local capabilities = vim.lsp.protocol.make_client_capabilities()
+		capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
+		capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+		-- LSP server configurations
+		local servers = {
+			yamlls = {},
+			gopls = {
+				cmd = { "gopls" },
+				filetypes = { "go", "gomod" },
+				settings = {
+					gopls = {
+						gofumpt = true,
+						codelenses = {
+							gc_details = false,
+							generate = true,
+							regenerate_cgo = true,
+							run_govulncheck = true,
+							test = true,
+							tidy = true,
+							upgrade_dependency = true,
+							vendor = true,
+						},
+						hints = {
+							assignVariableTypes = true,
+							compositeLiteralFields = true,
+							compositeLiteralTypes = true,
+							constantValues = true,
+							functionTypeParameters = true,
+							parameterNames = true,
+							rangeVariableTypes = true,
+						},
+						analyses = {
+							nilness = true,
+							unusedparams = true,
+							unusedwrite = true,
+							useany = true,
+						},
+						usePlaceholders = false,
+						completeUnimported = true,
+						staticcheck = true,
+					},
+				},
+			},
+			pyright = {},
+			rust_analyzer = {},
+			jsonls = {},
+
+			dockerls = {},
+			erlangls = {},
+			ruby_lsp = { enabled = true },
+			ts_ls = {},
+			eslint = {},
+			phpactor = {},
+			svelte = {},
+			golangci_lint_ls = {
+				init_options = {
+					command = {
+						"golangci-lint",
+						"run",
+						"--output.json.path",
+						"stdout",
+						"--show-stats=false",
+						"--issues-exit-code=1",
+					},
+				},
+			},
+			zls = {
+				settings = {
+					enable_build_on_save = true,
+					build_on_save_args = "check",
+				},
+			},
+			emmet_ls = {
+				filetypes = {
+					"astro",
+					"css",
+					"eruby",
+					"html",
+					"javascriptreact",
+					"less",
+					"sass",
+					"scss",
+					"svelte",
+					"typescriptreact",
+					"vue",
+					"heex",
+				},
+			},
+			lua_ls = {
+				settings = {
+					Lua = {
+						completion = {
+							callSnippet = "Replace",
+						},
+						hint = {
+							enable = true,
 						},
 					},
 				},
-				pyright = {},
-				rust_analyzer = {},
-				jsonls = {},
-
-				dockerls = {},
-				erlangls = {},
-				ruby_lsp = { enabled = true },
-				ts_ls = {},
-				eslint = {},
-				phpactor = {},
-				svelte = {},
-				golangci_lint_ls = {
-					init_options = {
-						command = {
-							"golangci-lint",
-							"run",
-							"--output.json.path",
-							"stdout",
-							"--show-stats=false",
-							"--issues-exit-code=1",
+			},
+			html = {},
+			terraformls = {},
+			cssls = {},
+			tailwindcss = {
+				settings = {
+					tailwindCSS = {
+						includeLanguages = {
+							ruby = "erb",
+							eelixir = "html-eex",
+							heex = "html-eex",
+							eruby = "erb",
 						},
-					},
-				},
-				zls = {
-					settings = {
-						enable_build_on_save = true,
-						build_on_save_args = "check",
-					},
-				},
-				emmet_ls = {
-					filetypes = {
-						"astro",
-						"css",
-						"eruby",
-						"html",
-						"javascriptreact",
-						"less",
-						"sass",
-						"scss",
-						"svelte",
-						"typescriptreact",
-						"vue",
-						"heex",
-					},
-				},
-				lua_ls = {
-					settings = {
-						Lua = {
-							completion = {
-								callSnippet = "Replace",
-							},
-							hint = {
-								enable = true,
-							},
-						},
-					},
-				},
-				html = {},
-				terraformls = {},
-				cssls = {},
-				tailwindcss = {
-					settings = {
-						tailwindCSS = {
-							includeLanguages = {
-								ruby = "erb",
-								eelixir = "html-eex",
-								heex = "html-eex",
-								eruby = "erb",
-							},
-							experimental = {
-								classRegex = {
-									[==[class:\s*["']([^"']*)["']]==],
-									[[class= "([^"]*)]],
-									[[class: "([^"]*)]],
-									[[class= '([^']*)]],
-									[[class: '([^']*)]],
-									'~H""".*class="([^"]*)".*"""',
-									'~F""".*class="([^"]*)".*"""',
-								},
+						experimental = {
+							classRegex = {
+								[==[class:\s*["']([^"']*)["']]==],
+								[[class= "([^"]*)]],
+								[[class: "([^"]*)]],
+								[[class= '([^']*)]],
+								[[class: '([^']*)]],
+								'~H""".*class="([^"]*)".*"""',
+								'~F""".*class="([^"]*)".*"""',
 							},
 						},
 					},
 				},
-				expert = {
-					cmd = { "expert", "--stdio" },
-					root_markers = { "mix.exs", ".git" },
-					filetypes = { "elixir", "eelixir", "heex" },
-				},
-			}
+			},
+			expert = {
+				cmd = { "expert", "--stdio" },
+				root_markers = { "mix.exs", ".git" },
+				filetypes = { "elixir", "eelixir", "heex" },
+			},
+		}
 
-			require("mason").setup()
+		require("mason").setup()
 
-			local ensure_installed = vim.tbl_keys(servers or {})
-			vim.list_extend(ensure_installed, { "stylua" }) -- Add stylua for Lua formatting
-			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
+		local ensure_installed = vim.tbl_keys(servers or {})
+		vim.list_extend(ensure_installed, { "stylua" }) -- Add stylua for Lua formatting
+		require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
-			for server_name, server in pairs(servers) do
-				server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-				vim.lsp.config(server_name, server)
-				vim.lsp.enable({ server_name })
-			end
-		end,
-	},
+		for server_name, server in pairs(servers) do
+			server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
+			vim.lsp.config(server_name, server)
+			vim.lsp.enable({ server_name })
+		end
+	end,
 }

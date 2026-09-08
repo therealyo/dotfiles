@@ -1,9 +1,10 @@
 return {
-	{
-		"MeanderingProgrammer/render-markdown.nvim",
-		dependencies = { "nvim-treesitter/nvim-treesitter", "echasnovski/mini.nvim" }, -- if you use the mini.nvim suite
+	"MeanderingProgrammer/render-markdown.nvim",
+	"nvim-treesitter/nvim-treesitter",
+	"echasnovski/mini.nvim", -- if you use the mini.nvim suite
+
+	config = function()
 		---@module 'render-markdown'
-		---@type render.md.UserConfig
-		opts = {},
-	},
+		require("render-markdown").setup({})
+	end,
 }

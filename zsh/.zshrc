@@ -177,3 +177,6 @@ eval "$(wtp shell-init zsh)"
 
 # direnv
 eval "$(direnv hook zsh)"
+
+# kubectl autocomplete
+source <(kubectl completion zsh)

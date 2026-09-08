@@ -18,9 +18,9 @@ local function find_project_root()
 end
 
 return {
-	"ThePrimeagen/harpoon",
-	branch = "harpoon2",
-	dependencies = { "nvim-lua/plenary.nvim" },
+	{ src = "ThePrimeagen/harpoon", version = "harpoon2" },
+	"nvim-lua/plenary.nvim",
+
 	config = function()
 		local harpoon = require("harpoon")
 

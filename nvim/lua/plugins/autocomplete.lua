@@ -1,48 +1,31 @@
-return { -- Autocompletion
+-- Autocompletion
+return {
 	"hrsh7th/nvim-cmp",
-	event = "InsertEnter",
-	dependencies = {
-		-- Snippet Engine & its associated nvim-cmp source
-		{
-			"L3MON4D3/LuaSnip",
-			build = (function()
-				-- Build Step is needed for regex support in snippets.
-				-- This step is not supported in many windows environments.
-				-- Remove the below condition to re-enable on windows.
-				if vim.fn.has("win32") == 1 or vim.fn.executable("make") == 0 then
-					return
-				end
-				return "make install_jsregexp"
-			end)(),
-			dependencies = {
-				-- `friendly-snippets` contains a variety of premade snippets.
-				--    See the README about individual language/framework/plugin snippets:
-				--    https://github.com/rafamadriz/friendly-snippets
-				{
-					"rafamadriz/friendly-snippets",
-					config = function()
-						local luasnip = require("luasnip")
-						luasnip.filetype_extend("javascriptreact", { "html" })
 
-						require("luasnip.loaders.from_vscode").lazy_load()
-					end,
-				},
-			},
-		},
-		"saadparwaiz1/cmp_luasnip",
+	-- Snippet engine and its nvim-cmp source. LuaSnip needs a build step for
+	-- regex support in snippets, see the `PackChanged` hooks in config/pack.lua.
+	"L3MON4D3/LuaSnip",
+	-- `friendly-snippets` contains a variety of premade snippets.
+	--    See the README about individual language/framework/plugin snippets:
+	--    https://github.com/rafamadriz/friendly-snippets
+	"rafamadriz/friendly-snippets",
+	"saadparwaiz1/cmp_luasnip",
 
-		-- Adds other completion capabilities.
-		--  nvim-cmp does not ship with all sources by default. They are split
-		--  into multiple repos for maintenance purposes.
-		"hrsh7th/cmp-cmdline",
-		"hrsh7th/cmp-nvim-lsp",
-		"hrsh7th/cmp-path",
-	},
+	-- Adds other completion capabilities.
+	--  nvim-cmp does not ship with all sources by default. They are split
+	--  into multiple repos for maintenance purposes.
+	"hrsh7th/cmp-cmdline",
+	"hrsh7th/cmp-nvim-lsp",
+	"hrsh7th/cmp-path",
+
 	config = function()
 		-- See `:help cmp`
 		local cmp = require("cmp")
 		local luasnip = require("luasnip")
 		luasnip.config.setup({})
+		luasnip.filetype_extend("javascriptreact", { "html" })
+		require("luasnip.loaders.from_vscode").lazy_load()
+
 		-- If you want insert `(` after select function or method item
 		local cmp_autopairs = require("nvim-autopairs.completion.cmp")
 		cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())

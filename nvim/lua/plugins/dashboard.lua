@@ -64,8 +64,10 @@ return {
 						key = "t",
 					},
 					{
-						action = "Lazy",
-						desc = " Lazy",
+						action = function()
+							vim.pack.update()
+						end,
+						desc = " Update Plugins",
 						icon = "󰒲 ",
 						key = "l",
 					},

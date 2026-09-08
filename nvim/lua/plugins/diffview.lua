@@ -1,6 +1,5 @@
 return {
 	"sindrets/diffview.nvim",
-	cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles", "DiffviewFocusFiles" },
 	config = function()
 		require("diffview").setup({
 			use_icons = true, -- Enable icons for better UI
