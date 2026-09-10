@@ -25,4 +25,4 @@
 -- 	end,
 -- })
 
-vim.cmd.colorscheme("accent")
+vim.cmd.colorscheme("default")
