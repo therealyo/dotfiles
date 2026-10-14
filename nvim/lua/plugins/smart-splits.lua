@@ -5,10 +5,8 @@ return {
 		require("smart-splits").setup({
 			ignored_buftypes = { "nofile", "quickfix", "prompt" },
 			ignored_filetypes = { "NvimTree" },
-			default_amount = 3,
-			at_edge = "wrap",
-			float_wi_behavior = "previous",
-			move_cursor_same_row = false,
+			resize = { amount = 3 },
+			move = { at_edge = "wrap", same_row = false },
 		})
 
 		-- Key mappings for smart-splits.nvim
@@ -31,7 +29,6 @@ return {
 		vim.keymap.set("n", "<C-w-j>", require("smart-splits").move_cursor_down)
 		vim.keymap.set("n", "<C-w-k>", require("smart-splits").move_cursor_up)
 		vim.keymap.set("n", "<C-w-l>", require("smart-splits").move_cursor_right)
-		vim.keymap.set("n", "<C-\\>", require("smart-splits").move_cursor_previous)
 		-- swapping buffers between windows
 		vim.keymap.set("n", "<leader><leader>j", require("smart-splits").swap_buf_left)
 		vim.keymap.set("n", "<leader><leader>k", require("smart-splits").swap_buf_down)

@@ -26,6 +26,9 @@ return {
 				percentage = 0.15,
 			},
 		})
+		require("rose-pine").setup({
+			disable_italics = true,
+		})
 
 		require("tairiki").setup({ palette = "dimmed" })
 
@@ -105,7 +108,7 @@ return {
 				{ name = "tairiki", colorscheme = "tairiki" },
 				{ name = "oxocarbon", colorscheme = "oxocarbon" },
 				{ name = "accent", colorscheme = "accent" },
-				{ name = "afterglow", colorscheme = "afterglow" },
+				{ name = "neovim", colorscheme = "default" },
 			},
 
 			-- Enable live preview while selecting themes

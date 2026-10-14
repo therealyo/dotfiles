@@ -24,7 +24,17 @@ return {
 			formatters = {
 				jq = {
 					command = "jq",
-					args = { "--indent", "4", "." },
+					-- Follow the buffer's indent, so .editorconfig decides the width.
+					args = function(_, ctx)
+						local sw = vim.bo[ctx.buf].shiftwidth
+						if sw == 0 then
+							sw = vim.bo[ctx.buf].tabstop
+						end
+						if not vim.bo[ctx.buf].expandtab then
+							return { "--tab", "." }
+						end
+						return { "--indent", tostring(math.min(sw, 7)), "." }
+					end,
 				},
 			},
 			formatters_by_ft = {
