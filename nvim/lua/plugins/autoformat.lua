@@ -40,7 +40,7 @@ return {
 			formatters_by_ft = {
 				lua = { "stylua" },
 				go = { "goimports", "gofmt", "golines" },
-				json = { "jq" },
+				json = { "prettierd", "prettier", "jq", stop_after_first = true },
 				ruby = { "rubocop" },
 				eruby = { "erb-format" },
 				sh = { "shfmt" },
