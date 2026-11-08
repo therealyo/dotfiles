@@ -127,7 +127,9 @@ return {
 			pyright = {},
 			rust_analyzer = {},
 			jsonls = {},
+			just = {},
 
+			csharp_ls = {},
 			dockerls = {},
 			erlangls = {},
 			ruby_lsp = { enabled = true },

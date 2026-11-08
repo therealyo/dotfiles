@@ -39,6 +39,11 @@ local builds = {
 			vim.cmd("TSUpdate")
 		end)
 	end,
+	["nvim-dap-unity"] = function()
+		vim.schedule(function()
+			require("nvim-dap-unity").install()
+		end)
+	end,
 	["molten-nvim"] = function()
 		vim.schedule(function()
 			vim.cmd("UpdateRemotePlugins")

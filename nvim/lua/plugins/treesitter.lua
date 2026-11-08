@@ -40,6 +40,7 @@ return {
 			"python",
 			"javascript",
 			"svelte",
+			"c_sharp",
 		})
 
 		local tsc = require("treesitter-context")

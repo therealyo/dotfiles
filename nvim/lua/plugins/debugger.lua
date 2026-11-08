@@ -1,6 +1,7 @@
 return {
 	"mfussenegger/nvim-dap",
 	"leoluz/nvim-dap-go",
+	"ownself/nvim-dap-unity",
 	"rcarriga/nvim-dap-ui",
 	"theHamsta/nvim-dap-virtual-text",
 	"nvim-neotest/nvim-nio",
@@ -12,6 +13,32 @@ return {
 
 		require("dapui").setup()
 		require("dap-go").setup()
+
+		-- C#: netcoredbg for plain .NET. Built from source into ~/.local/share/netcoredbg,
+		-- because the prebuilt macOS binaries need macOS 15's libc++.
+		local netcoredbg = vim.fn.expand("~/.local/share/netcoredbg/netcoredbg")
+		if vim.fn.executable(netcoredbg) == 1 then
+			dap.adapters.coreclr = {
+				type = "executable",
+				command = netcoredbg,
+				args = { "--interpreter=vscode" },
+			}
+
+			dap.configurations.cs = {
+				{
+					type = "coreclr",
+					name = "Launch .NET dll",
+					request = "launch",
+					program = function()
+						return vim.fn.input("Path to dll: ", vim.fn.getcwd() .. "/bin/Debug/", "file")
+					end,
+				},
+			}
+		end
+
+		-- "Attach to Unity" (vstuc adapter, installed by the PackChanged build hook).
+		-- Appends to dap.configurations.cs, so it runs after netcoredbg.
+		require("nvim-dap-unity").setup({})
 
 		require("nvim-dap-virtual-text").setup({})
 

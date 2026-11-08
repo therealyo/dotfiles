@@ -180,3 +180,7 @@ eval "$(direnv hook zsh)"
 
 # kubectl autocomplete
 source <(kubectl completion zsh)
+
+source <(gh completion -s zsh)
+# Unity CLI
+. "/Users/daniilpshenik/.unity/env"
